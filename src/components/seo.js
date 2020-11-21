@@ -20,6 +20,7 @@ const SEO = ({ description, lang, meta, title }) => {
             description
             social {
               twitter
+              github
             }
           }
         }
@@ -70,6 +71,10 @@ const SEO = ({ description, lang, meta, title }) => {
           name: `twitter:description`,
           content: metaDescription,
         },
+        {
+          name: `google-site-verification`,
+          content: `-ZMrBypBRJzweUNswVYr2QC5xPMGT1CocYOQVnj_pLI`
+        }
       ].concat(meta)}
     />
   )
