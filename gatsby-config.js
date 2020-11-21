@@ -6,9 +6,10 @@ module.exports = {
       summary: ``,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    siteUrl: `https://stalker5217.netlify.app/`,
     social: {
       twitter: ``,
+      github: `stalker5217`
     },
   },
   plugins: [
