@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Utterances from "../components/utterances"
 
 import "../../node_modules/katex/dist/katex.min.css"
 
@@ -62,6 +63,8 @@ const BlogPostTemplate = ({ data, location }) => {
           </li>
         </ul>
       </nav>
+
+      <Utterances repo='stalker5217/gatsby-stalker5217' theme='github-light' />
     </Layout>
   )
 }
