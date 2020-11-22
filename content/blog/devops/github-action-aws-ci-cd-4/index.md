@@ -13,6 +13,7 @@ tags:
   - automation
   - AWS
 description: 'github action, AWS S3, AWS CodeDeploy, AWS EC2를 사용하여 CI/CD 환경을 구성해봅시다'
+indexImage: './cover.png'
 ---
 
 본 포스팅은 '스프링 부트와 AWS로 혼자 구현하는 웹 서비스, 이동욱'의 내용을 기반으로 작성한 내용입니다.  
