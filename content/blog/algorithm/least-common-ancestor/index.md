@@ -124,6 +124,8 @@ int lca(int a, int b){
 
 ## Memoization (Segment Tree)  
 
+[11438 : LCA 2](https://www.acmicpc.net/problem/11438)  
+
 세그먼트 트리를 사용하면 최대 공통 조상을 $ O(nlgn) $의 시간에 해결할 수 있다.  
 
 세그먼트 트리는 선형 데이터를 처리하기 위한 자료 구조로 트리를 선형으로 만들 필요가 있다. 
