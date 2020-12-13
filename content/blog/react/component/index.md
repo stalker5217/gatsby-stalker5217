@@ -229,3 +229,8 @@ const Counter = () => {
 
 export default Counter;
 ```
+
+<br/>
+
+참고
+- 김민준, 리액트를 다루는 기술, 길벗
