@@ -247,9 +247,137 @@ function FriendStatus(props) {
 }
 ```
 
+#### ```useMemo```  
+
+여기서 Memo는 Memoization을 의미하며 메모이제이션된 값을 반환한다.
+
+``` js
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const isEven = useMemo(() => count % 2 ? false : true, [count]);
+  console.log(isEven);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+이 때, ```isEven```은 ```useMemo```를 사용하여 실제 ```count``` 가 변경이 되었을 때만 내부 로직을 실행한다. 
+즉, ```count``` state의 변경으로 인한 리렌더링이 아닌 다른 요소에 의한 리렌더링 시에는 이를 생략하여 성능상의 이점을 취한다. 
+
+
+> ***```React.memo```**  
+> Hook은 아니지만 유사하게 ```props```가 변경되었을 때만 다시 렌더링하는 구문이 있다. 
+> 이는 간단히 컴포넌트를 해당 함수로 wrapping 하여 사용한다. 
+> ``` js
+> function Counter() {
+>   return (
+>     ...
+>   );
+> }
+> 
+> export default React.memo(Counter);
+> ```
+
+#### ```useCallback```
+
+이도 메모이제이션을 위한 훅이다. ```useMemo``` 가 값을 반환하는데 반해, 이는 메모이제이션된 함수를 반환한다. 
+
+``` js
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  const printCount = useCallback((count) => {
+    console.log(count);
+  }, []);
+
+  printCount(count);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+``` 
+
+여기서 해당 변수를 출력해주는 ```printCount``` 함수는 어떤 상태에 의존적이지 않기 때문에 렌더링할 때 마다 새로운 함수를 만들어 할당할 필요가 없다. 
+```useCallback```는 이를 메모이제이션한다. 위 코드에서는 두 번째 인자로 빈 배열이 넘어갔기 때문에 컴포넌트가 리렌더링되어도 처음 생성된 함수를 유지한다. 
+
+#### ```useReducer```  
+
+```useState```를 대체할 수 있는 훅이다. 
+
+``` js
+function Counter() {
+  const [number, setNumber] = useState(0);
+
+  const onIncrease = () => {
+    setNumber(prevNumber => prevNumber + 1);
+  };
+
+  const onDecrease = () => {
+    setNumber(prevNumber => prevNumber - 1);
+  };
+
+  return (
+    <div>
+      <h1>{number}</h1>
+      <button onClick={onIncrease}>+1</button>
+      <button onClick={onDecrease}>-1</button>
+    </div>
+  );
+}
+```
+
+먼저 -, + 버튼을 눌러 값을 조절하는 컴포넌트를 ```useState```로 구현하면 위와 같이 구현할 수 있다. 
+그리고 동일한 컴포넌트를 ```useReducer```를 사용하면 아래와 같이 구현할 수 있다.
+
+``` js
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+
+reducer는 state와 action을 받아 새로운 state를 정의하는 함수이다. 
+그리고 ```useReducer```은 이 reducer를 받아 state와 dispatch를 반환한다. 
+여기서 dispatch는 action을 발생시킬 수 있는 함수 정도로 보면 된다. 
+
+단일 값 등을 관리하기 위해서는 useState를 사용하면 된다. 
+하지만 state가 여러 개 섞이고, state가 이전 state에 의존적인 등 복잡한 로직의 구현이 필요할 때는 ```useReducer```가 선호된다. 
+
 #### 그 외 Hooks
 
-```useState```, ```useEffect``` 에 대한 내용과 Custom Hook에 관한 내용을 확인했다. 
 Hooks의 종류는 많다. 그리고 커스텀하여 만들 수 있다는 것은 개인이 이미 만들어서 배포하고 있는 것도 엄청 많다는 뜻이다. 
 아래는 리액트에 내장되어 있는 Hooks의 종류이며 추후 필요한 상황에 맞게 학습하여 사용하면 된다.
 
