@@ -376,6 +376,21 @@ reducer는 state와 action을 받아 새로운 state를 정의하는 함수이�
 단일 값 등을 관리하기 위해서는 useState를 사용하면 된다. 
 하지만 state가 여러 개 섞이고, state가 이전 state에 의존적인 등 복잡한 로직의 구현이 필요할 때는 ```useReducer```가 선호된다. 
 
+#### ```useContext```  
+
+애플리케이션에는 전역적인 상태가 있다. 
+예를 들면 로그인 정보, 애플리케이션의 설정 값등 대다수 컴포넌트에서 공유하고 있어야하는 값들이다. 
+최상위 컴포넌트에서 이러한 정보를 관리하면서 순차적으로 내려주는 것이 아닌 어디서든 접근할 수 있는 ```context```가 리액트에서는 존재한다. 
+그리고 이를 함수형 컴포넌트에서 사용할 때는 Hook을 사용하여 간편하게 받아올 수 있다.
+
+``` js
+function Example() {
+  const locale = useContext(LocaleContext);
+  const theme = useContext(ThemeContext);
+  // ...
+}
+```
+
 #### 그 외 Hooks
 
 Hooks의 종류는 많다. 그리고 커스텀하여 만들 수 있다는 것은 개인이 이미 만들어서 배포하고 있는 것도 엄청 많다는 뜻이다. 
