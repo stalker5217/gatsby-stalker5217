@@ -33,7 +33,7 @@ indexImage: './cover.png'
 ### ```ModelAndView```  
 
 실제 컨트롤러가 리턴해야되는 값을 그대로 사용하는 것이다. 
-가장 대표적인 개념이지만 직관적이지 않아서 직접적으로 많이 사용되지는 않는다. 
+가장 대표적인 개념이지만 직관적이지 않아서 많이 사용되지는 않는다. 
 
 ``` java
 @RequestMapping("/hello")
@@ -66,7 +66,7 @@ public String hello(@RequestParam String name, Model model){
 
 ### ```void```  
 
-반환 타입이 ```voide```면 ```RequestToViewNameResolver```를 통해 URL 매핑 정보와 동일한 뷰 이름을 반환한다. 
+반환 타입이 ```void```면 ```RequestToViewNameResolver```를 통해 URL 매핑 정보와 동일한 뷰 이름을 반환한다. 
 URL 이름과 뷰 이름이 일대일로 매칭된다면 사용을 고려해볼만 하다.
 
 ``` java
@@ -80,7 +80,7 @@ public void hello(@RequestParam String name, Model model){
 
 ```void``` 반환보다 더 생략을 해버린 친구이다. 
 만약 모델에 추가되는 오브젝트가 한 개만 존재할 때 사용할 수 있다.
-뷰 이름은 ```void``` 반환 처럼 URL 매핑 정보로 뷰 이름이 결정되고, 
+```void``` 반환처럼 URL 매핑 정보로 뷰 이름이 결정되고, 
 반환 값으로 지정된 오브젝트는 모델에 등록된다. 
 
 ``` java
@@ -102,10 +102,9 @@ public Map view(@RequestParam int id){
 }
 ```
 
-하지만 이 코드는 문제가 있다. 
-위 모델 오브젝트를 하나만 반환하는 것과 같이 ```map``` 이름으로 모델에 등록되는 것이 아니다. 
-이미 이 리턴 값들은 맵으로 인식이되어 내부 엔트리를 개별적으로 등록하기 때문이다. 
-따라서 이러한 방식의 코드는 지양하는 것이 좋으며, 다음과 같이 작성하는 것이 올바르다. 
+모델 오브젝트를 반환하는 것처럼 ```map```이라는 이름으로 모델에 오브젝트가 등록되기를 기대했다면 이 코드는 문제가 있다. 
+이미 이 값들은 맵으로 인식이되어 내부 엔트리를 개별적으로 모델에 등록하기 때문이다. 
+따라서 원하는 목적을 이루기 위해서는, 다음과 같이 작성하는 것이 올바르다. 
 
 ``` java
 @RequestMapping("/view")
