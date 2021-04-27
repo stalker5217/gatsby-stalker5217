@@ -20,8 +20,7 @@ indexImage: './cover.png'
 호출할 때 마다 다른 결과를 반환하는 경우에는 캐시를 적용한다면 오히려 성능이 나빠질 수 있다. 
 매번 실행 조건이 다르다면 메서드 내부 로직은 내부 로직대로 돌고 부가적으로 캐시를 위한 관리까지 들어가기 때문이다. 
 
-캐시는 메서드 단위로 주로 지정하며 ```<aop:config>```, ```<aop:advisor>``` 같은 기본 AOP 방법을 사용할 수도 있지만, 
-애노테이션으로 간단하게 지정할 수 있다. 
+캐시는 메서드 단위로 주로 지정하며 ```<aop:config>```, ```<aop:advisor>``` 같은 기본 AOP 방법을 사용할 수도 있지만, 애노테이션으로 간단하게 지정할 수 있다. 
 스프링부트에서 캐시를 사용하기 위해 먼저 ```spring-boot-starter-cache``` 의존성을 추가하자. 
 그리고 캐시를 사용하겠다는 의미로 부트스트랩 클래스에 ```@EnableCaching```를 설정한다. 
 
@@ -34,6 +33,30 @@ public class MyApplication {
     }
 }
 ```
+
+그리고 캐시 추상화에서 사용할 스토리지가 필요하다. 
+단순히 의존성을 추가하는 것만으로도 ```ConcurrentMap``` 기반의 ```SimpleCacheManager``` 생성되며, 명시적으로 지정할 수 있다. 
+빈 이름의 변경들이 필요하면 명시적으로 구현할 수 있다. 
+
+``` java
+@Configuration
+public class CacheConfig {
+	public static final String MYCACHE = "my-cache";
+
+	@Bean
+	public CacheManager createManager(){
+		SimpleCacheManager simpleCacheManager = new SimpleCacheManager();
+		simpleCacheManager.setCaches(Arrays.asList(
+			new ConcurrentMapCache(MYCACHE)
+		));
+
+		return simpleCacheManager;
+	}
+} 
+```
+
+위 코드처럼 ```CacheManager```의 구현체만 빈으로 등록해주면 다른 스토리지를 사용할 수도 있다. 
+사용될 수 있는 구현체는 대표적으로 EhCache, Redis, Caffeine Cache, JCache 등이 있다.
 
 ### ```@Cacheable```  
 
