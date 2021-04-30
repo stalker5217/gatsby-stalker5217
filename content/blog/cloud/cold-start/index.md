@@ -13,7 +13,7 @@ tags:
   - Google Cloud Platform
   - AWS Lambda
 description: 'Cold Start에 대해 알아봅시다.'
-last_modified_at: '2020-07-13'
+last-modified-at: '2020-07-13'
 indexImage: './cover.png'
 ---
 
