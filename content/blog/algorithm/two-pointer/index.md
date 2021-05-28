@@ -45,22 +45,26 @@ naive한 솔루션으로는 이중 포문으로 i와 j를 구성하고 이들의
 먼저 시작과 끝을 의미하는 ```start```와 ```end```를 정의하고 아래를 따라 해를 구한다. 
 - 합이 구하고자 하는 값 보다 작다면 ```end```를 증가시키며 해당 배열의 값을 더한다.
 - 합이 구하고자 하는 값 보다 크면 ```start```를 증가시키며 해당 배열의 값을 제외한다.
-- 합이 구하고자 하는 값과 일치하면 ```answer(count)```를 증가시킨다.
+- 합이 구하고자 하는 값과 일치하면 ```answer```를 증가시킨다.
 
 ``` cpp
-int start = 0, end = 0;
-int sum = 0;
-int answer =  0;
-while(start <= end){
-	if(sum == target) answer++;
+	int cnt, target;
+	cin >> cnt >> target;
+	int arr[10000];
+	for(int i = 0 ; i < cnt ; i++) cin >> arr[i];
 	
-	if(sum >= target) sum -= arr[start++];
-	else if(sum < target){
-		if(end >= cnt) break;
-		sum += arr[end++];
+	int start = 0, end = 0;
+	int sum = 0;
+	int answer =  0;
+	while(start <= end){
+		if(sum >= target) sum -= arr[start++];
+		else if(end == cnt) break;
+		else sum += arr[end++];
+		
+		if(sum == target) answer++;
 	}
 
-}
+	cout << answer;
 ```
 
 구하고자 하는 합이 5일 경우 다음과 같이 동작한다.
