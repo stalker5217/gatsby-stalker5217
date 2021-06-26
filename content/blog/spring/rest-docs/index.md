@@ -108,7 +108,7 @@ class ChatControllerTest {
 |Maven|target/generated-snippets|
 |Gralde|build/generated-snippets|
 
-![rest-docs-snippet-1](./rest-docs-snippet-1.png);
+![rest-docs-snippet-1](./rest-docs-snippet-1.png)
 
 ``` java
 @ExtendWith(SpringExtension.class)
@@ -157,7 +157,7 @@ class ChatControllerTest {
 그리고 필요한 요소들을 추가적으로 정의하면 된다. 
 각 API가 포함하는 Header, Parameter, HyperMedia, Constraint 등을 명시할 수 있다. 
 
-![rest-docs-snippet-2](./rest-docs-snippet-2.png);
+![rest-docs-snippet-2](./rest-docs-snippet-2.png)
 
 ``` java
 @TestConfiguration
