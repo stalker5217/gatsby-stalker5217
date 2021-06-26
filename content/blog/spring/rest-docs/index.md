@@ -16,60 +16,64 @@ API에 대한 문서를 작성하는 것은 쉬운 일이 아니다.
 
 **Spring REST Docs** 는 RESTful 서비스에 대한 문서 스니펫을 자동 생성 할 수 있다. 
 Spring MVC라면 ```MockMvc```를 기반으로하는 테스트 프레임워크, 
-Spring WebFlux의 ```WebTestClient```, 
+Spring WebFlux라면 ```WebTestClient```, 
 Rest Assured 3 등을 기반으로 스니펫을 만들어낸다. 
 
-작성한 문서 템플릿에서 생성된 스니펫을 참고하여 최종 문서를 생성한다. 
-디폴트로는 Asciidoctor로 만들어진 HTML을 문서를 생성하며, Markdown을 선호하는 경우에는 Markdown으로 생성도 가능하다. 
+그리고 작성한 문서 템플릿은 생성된 스니펫을 참고하여 최종 문서를 생성한다. 
+디폴트로는 Asciidoctor로 만들어진 HTML을 문서를 생성한다. 
 
-### Build Configuration
+### Build Configuration  
+
+gradle 프로젝트에서 REST Docs를 사용하기 위한 기본적인 빌드 설정은 아래와 같다. 
 
 ``` groovy
 plugins { 
   // 1. Asciidoctor 플러그인 설정
-	id "org.asciidoctor.convert" version "1.5.9.2"
+  id "org.asciidoctor.convert" version "1.5.9.2"
 }
 
 dependencies {
   // 2 asciidoctor. 
   // 생성된 adoc 스니펫 파일을 build/generated-snippets으로 위치
   // operation block macro 사용 가능
-	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:{project-version}' 
+  asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor:{project-version}' 
   // 3. mockMvc를 restdocs에 사용 가능
-	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:{project-version}' 
+  testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:{project-version}' 
 
   implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 }
 
 ext { 
   // 4 스니펫의 생성 경로 정의
-	snippetsDir = file('build/generated-snippets')
+  snippetsDir = file('build/generated-snippets')
 }
 
 test { 
   // 5 스니펫 생성 경로 지정
-	outputs.dir snippetsDir
+  outputs.dir snippetsDir
 }
 
 // 6 asciidoctor에 대한 작업 구성
 asciidoctor { 
   // 7 사용할 스니펫의 경로
-	inputs.dir snippetsDir 
-	// 8 해당 작업 전에 test가 싱핼되도록 종속성 설정
+  inputs.dir snippetsDir 
+  // 8 해당 작업 전에 test가 싱핼되도록 종속성 설정
   dependsOn test 
 }
 
 bootJar {
   // 9 해당 작업 전에 asciidoctor가 실행되도록 종속성 설절
-	dependsOn asciidoctor 
+  dependsOn asciidoctor 
   // 10 패키징된 문서를 static/docs 경로에 복사
-	from ("${asciidoctor.outputDir}/html5") { 
-		into 'static/docs'
-	}
+  from ("${asciidoctor.outputDir}/html5") { 
+    into 'static/docs'
+  }
 }
 ```
 
-### 테스트 코드 작성  
+### Snippet 생성
+
+이후 API에 대한 스니펫을 생성하기 위해 mockMvc를 사용하여 아래와 같은 코드를 작성한다.  
 
 ``` java
 @ExtendWith(SpringExtension.class)
@@ -99,8 +103,8 @@ class ChatControllerTest {
 }
 ```
 
-스프링부트에서는 ```@AutoConfigureRestDocs```를 통해 적용 가능하다. 
-다음 테스트를 수행하면 아래와 같이 스니펫들이 생성된다.  
+스프링부트에서는 클래스에 ```@AutoConfigureRestDocs``` 어노테이션을 적용한다.  
+그리고 ```mockMvc```를 사용한 테스트 코드 이 후 마지막에 작성된 ```document("welcome)``` 을 통해 스니펫을 생성한다. 
 이는 기본적으로 request, response body에 대한 정보를 포함하며, 생성 위치는 빌드 도구에 따라 달라진다. 
 
 |Build tool|생성 파일 위치|
@@ -172,7 +176,7 @@ public class RestDocsConfiguration {
 }
 ```
 
-API 명세 이외에도 Docs에 대한 설정과 PreProcessor를 지정할 수 있다. 
+API 명세 이외에도 Docs에 대한 다양한 설정과 PreProcessor를 지정할 수 있다. 
 위 예시는 ```prettyPrint()```를 통해 생성되는 스니펫 내부의 JSON 등의 포맷을 읽기 쉽게 포맷팅 해준다. 
 위와 같이 Bean을 작성하고 테스트 클래스에 ```@Import(RestDocsConfiguration.class)``` 어노테이션을 지정하면 설정이 적용된다. 
 
@@ -218,7 +222,7 @@ operation::query[snippets='request-parameters,response-body,response-fields']
 
 ![rest-docs-result](./rest-docs-result.png)
 
-[링크](./api-guide.html)
+[생성된 문서](./api-guide.html)
 
 <br/>
 
