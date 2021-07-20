@@ -11,7 +11,7 @@ indexImage: './cover.png'
 
 ## CSRF  
 
-**CSRF(Cross-Site Request Forgery)** 사용자가 서비스에 로그인한 상태에서 어느 악의적인 사이트에 접속을 하면,  
+**CSRF(Cross-Site Request Forgery)** 사용자가 서비스에 로그인한 상태에서 어느 악의적인 사이트에 접속을 하면, 
 기존 서비스에 로그인한 권한을 가지고 공격자의 의도에 맞는 요청을 하는 공격이다. 
 
 예를 들어 은행 사이트에서 아래와 같은 폼을 제공한다고 가정한다. 
