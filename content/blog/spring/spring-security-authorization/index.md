@@ -50,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 |```hasIpAddress(String)```|지정된 IP의 요청을 허용한다|
 |```not()```|다른 접근 메서드를 무효화한다|
 |```access(String)```|인자로 전달된 SpEL 식이 참이면 허용한다|
-```
 
 <br/>
 
