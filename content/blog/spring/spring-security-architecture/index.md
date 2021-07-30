@@ -129,7 +129,7 @@ indexImage: './cover.png'
 ## Authentication  
 
 스프링 시큐리티는 수 많은 필터를 기반으로 다양한 인증 방식을 처리할 수 있다. 
-그 중 가장 많이 사용되는 방식인 Username, Password 기반 인증의 구조 중를 알아본다. 
+그 중 가장 많이 사용되는 방식인 Username, Password 기반 인증의 구조를 알아본다. 
 
 해당 인증 방식은 폼 기반 Authentication, Http Basic Authehntication, Digest Authentication을 처리할 수 있다.
 
@@ -145,7 +145,7 @@ indexImage: './cover.png'
 ```SecurityContext```는 홀더 내부에서 ```Authentication```를 포함하고 있는 객체이며, 
 ```Authentication``` 객체는 인증된 사용자의 정보를 포함하고 있다. 
 
-- ```principal``` : '인증한 사용자가 누군가?'에 해당되는 정보이며, 해당 방식 인증 시에는 ```UserDetailService```에서 반환한 ```UserDetails``` 객체를 나타낸다. 
+- ```principal``` : '인증한 사용자가 누군가?' 에 해당되는 정보이며, 해당 방식 인증 시에는 ```UserDetailService```에서 반환한 ```UserDetails``` 객체를 나타낸다. 
 - ```authorities``` : ```GrantAuthoritiy``` 객체는 ```AuthenticationManager```가 부여한 권한 등급을 나타낸다. 
 - ```credentials``` : 인증한 사용자의 암호를 나타낸다.
 
@@ -269,7 +269,7 @@ boolean supports(Class clazz);
 |```RoleVoter```|전달된 ```ConfigAttribute```에 'ROLE_' 로 시작하는 속성이 있을 때 투표를 하며 그렇지 않으면 기권한다. 일치하면 접근 허용하며 일치하지 않으면 접근을 거부한다.|
 |```AuthenticationVoter```|인증하지 않은 익명 사용자, remember-me를 통한 인증 등을 구분하여 접근 여부를 결정한다.|
 
-Spring Mvc에서는 각 ```HttpServletRequest```에 대해 이 같은 룰을 아래 페이지를 참조하여 설정할 수 있다. 
+Spring Mvc에서는 각 ```HttpServletRequest```에 대한 룰을 아래 페이지를 참조하여 설정할 수 있다. 
 
 [Spring Security - 접근 제어 설정](/spring/spring-security-authorization)
 
@@ -284,7 +284,7 @@ Spring Mvc에서는 각 ```HttpServletRequest```에 대해 이 같은 룰을 아
 ![access-decision-voting](access-decision-voting.png)
 
 최종 결과가 접근 거부라면 후속 작업을 ```ExceptionTranslationFilter``` 에서 처리된다. 
-이 필터는 아래 슈도 코드처럼 ```FilterSecurityInteceptor```를 감싸고 있다. 
+이 필터는 아래 pseudo code처럼 ```FilterSecurityInteceptor```를 감싸고 있다. 
 
 ``` java
 try {
@@ -309,5 +309,5 @@ try {
 
 참고  
 - [Spring Security Reference](https://docs.spring.io/spring-security/site/docs/current/reference/html5/)
-- [Topical Guide](https://spring.io/guides/topicals/spring-security-architecture)
+- [Topical Guide | Spring Security Architecture](https://spring.io/guides/topicals/spring-security-architecture)
 - Craig Walls, Spring in Action 5/E, 심재철, 제이펍  
