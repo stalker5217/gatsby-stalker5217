@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .mvcMatchers("/resources/**", "/signup", "/about").permitAll()         
             .mvcMatchers("/admin/**").hasRole("ADMIN")                             
             .mvcMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")   
-            .anyRequest().denyAll()                                                
+            .anyRequest().denyAll();
         );
     }
 }
@@ -50,6 +50,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 |```hasIpAddress(String)```|지정된 IP의 요청을 허용한다|
 |```not()```|다른 접근 메서드를 무효화한다|
 |```access(String)```|인자로 전달된 SpEL 식이 참이면 허용한다|
+
+## Hierarchical Roles  
+
+애플리케이션 내에서 ADMIN과 USER 역할이 있다고 가정한다. 
+보통 이러한 설계에서는 두 개의 역할은 계층적인 구조를 가진다. 
+ADMIN은 USER의 상위 계층으로 USER가 할 수 있는 것은 모두 할 수 있는 것이다. 
+
+``` java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    public SecurityExpressionHandler expressionHandler() {
+      // 계층 구조 지정
+      RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+      roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
+
+      DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+      handler.setRoleHierarchy(roleHierarchy);
+
+      return handler;
+    }
+    
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+      http
+        // ...
+        .authorizeRequests(authorize -> authorize                                  
+            .mvcMatchers("/resources/**", "/signup", "/about").permitAll()         
+            .mvcMatchers("/admin/**").hasRole("ADMIN")                             
+            .mvcMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")   
+            .anyRequest().denyAll()
+            .expressionHandler(expressionHandler()); // 핸들러 등록
+        );
+    }
+}
+```
 
 <br/>
 
