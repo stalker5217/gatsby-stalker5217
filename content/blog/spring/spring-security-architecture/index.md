@@ -1,6 +1,6 @@
 ---
-title: '[Spring] Spring Security Architecture'
-date: '2021-07-27'
+title: '[Spring] Spring Security - Architecture'
+date: '2021-07-31'
 categories:
   - spring
 tags:
@@ -26,7 +26,8 @@ indexImage: './cover.png'
 스프링 시큐리티가 제공하는 전체 필터를 순서대로 나열한 목록은 아래와 같다. 
 정해진 순서대로 처리되기에 전후 관계를 파악해야하는 것이 중요하다. 
 
-1. ChannelProcessingFilter
+1. **ChannelProcessingFilter**  
+   특정 채널을 통한 요청만을 처리하게 한다. 가장 흔한 예제는 URL 요청은 HTTP 또는 HTTPS를 통해 발생할 수 있는데 HTTPS 요청만 처리하도록 강제하는 것이다.
    
 2. **WebAsyncManagerIntegrationFilter**  
    Spring MVC에서 Async를 사용할 때, 생성된 다른 스레드에서도 Security Context를 공유할 수 있도록 처리한다.
@@ -64,10 +65,10 @@ indexImage: './cover.png'
 12. **CasAuthenticationFilter**  
     CAS(Central Authentication Service) 기반 인증을 처리한다.
 
-13. OAuth2LoginAuthenticationFilter
+13. **OAuth2LoginAuthenticationFilter**  
     OpenId Connect, Non-Standard OAuth 2.0과 같은 OAuth 2.0 기반 인증을 처리한다.
 
-14. Saml2WebSsoAuthenticationFilter  
+14. **Saml2WebSsoAuthenticationFilter**  
     SAML 2.0 기반 인증을 처리한다
 
 15. **UsernamePasswordAuthenticationFilter**  
@@ -82,7 +83,8 @@ indexImage: './cover.png'
 18. **DefaultLogoutPageGeneratingFilter**  
     기본 로그아웃을 처리하는 폼 화면을 만들어주는 역할을 한다. 커스텀 페이지를 생성할 경우 사라진다.
 
-19. ConcurrentSessionFilter  
+19. **ConcurrentSessionFilter**  
+    사용자가 한 번에 가질 수 있는 활성 세션의 수를 제어한다. 
 
 20. **DigestAuthenticationFilter**  
     Digest 기반 인증을 처리한다.  
@@ -110,7 +112,6 @@ indexImage: './cover.png'
 
 28. OAuth2AuthorizationCodeGrantFilter  
     
-
 29. **SessionManagementFilter**  
     Session에 대한 정책을 체크한다. 세션 고정 보호, 타임아웃 처리, 동시에 열 수 있는 최대 세션 개수 등을 설정할 수 있다.
 
@@ -242,7 +243,67 @@ public class UserRepositoryUserDetailService implements UserDetailsService {
 인증 과정에서 발생한 ```Authentication``` 객체에는 권한 정보인 ```GratedAuthority``` 객체를 가지고 있다. 
 이 객체는 권한 정보를 나타내며 스프링 시큐리티에서는 하나의 문자열로 권한을 표현하는 ```SimpleGrantedAuthority```를 기본 구현체로 제공한다.
 
-**```AccessDecisionManager```** 는 이를 기반으로 접근에 대한 결정을 하게 된다. 
+인가에 대한 판단은 필터 중 ```AbstractSecurityInteceptor```의 구현체인 ```FilterSecurityInterceptor```에서 진행한다. 이 인터셉터는 **```AccessDecisionManager```** 를 호출하며 인증 정보에 담긴 ```GratedAuthority```를 기반으로 해당 리소스에 대한 접근 여부를 결정한다.  
+
+```AccessDecisionManger```는 인터페이스며 아래 3개의 메서드를 구현한다. 
+
+``` java
+void decide(
+    Authentication authentication, 
+    Object secureObject, 
+    Collection<ConfigAttribute> attrs
+) throws AccessDeniedException;
+
+boolean supports(ConfigAttribute attribute);
+
+boolean supports(Class clazz);
+```
+
+이를 적절한 스펙을 가지고 직접 구현해도 되지만 스프링 시큐리티에서는 투표 기반 전략을 가지며 이에 관련된 구현체들을 제공한다. 
+먼저, 접근 허용/거부를 판정하는 ```AccessDecisionVoter```가 여러 개 존재할 수 있는데 이는 ```AccessDecisionManager```와 동일한 메서드를 구현하고 있는 인터페이스이다. 이들은 각각 판단 결과가 거부라면  ```AccessDeniedException```를 발생시킨다. 
+
+그리고 이들은 직접 구현한 커스텀을 제외하고는 2가지가 존재한다. 
+
+|Name|Description|
+|:---|:---|
+|```RoleVoter```|전달된 ```ConfigAttribute```에 'ROLE_' 로 시작하는 속성이 있을 때 투표를 하며 그렇지 않으면 기권한다. 일치하면 접근 허용하며 일치하지 않으면 접근을 거부한다.|
+|```AuthenticationVoter```|인증하지 않은 익명 사용자, remember-me를 통한 인증 등을 구분하여 접근 여부를 결정한다.|
+
+Spring Mvc에서는 각 ```HttpServletRequest```에 대해 이 같은 룰을 아래 페이지를 참조하여 설정할 수 있다. 
+
+[Spring Security - 접근 제어 설정](/spring/spring-security-authorization)
+
+그리고 이 투표 결과를 모두 모아 최종 결정을 하는 3개의 ```AccessDecisionManger``` 구현체가 존재한다.
+
+|Name|Description|
+|:---|:---|
+|```AffirmativeBased```|디폴트 값. 여러 Voter 중 한 명이라도 허용하면 접근 허용|
+|```ConcensusBased```|Voter들의 허용, 거부에 따른 다수결 판정|
+|```UnanimousBase```|모든 Voter가 허용해야 접근 허용|
+
+![access-decision-voting](access-decision-voting.png)
+
+최종 결과가 접근 거부라면 후속 작업을 ```ExceptionTranslationFilter``` 에서 처리된다. 
+이 필터는 아래 슈도 코드처럼 ```FilterSecurityInteceptor```를 감싸고 있다. 
+
+``` java
+try {
+    // FilterSecurityInterceptor 또는 Method Security 호출
+} catch (AccessDeniedException | AuthenticationException ex) {
+    if (!authenticated || ex instanceof AuthenticationException) {
+        startAuthentication(); 
+    } else {
+        accessDenied(); 
+    }
+}
+```
+
+만약 ```AuthenticationException```라면 먼저 ```SecurityContextHolder```를 비우고 현재 요청 정보를 ```RequestCache```를 통해 저장한다.
+그리고 ```AuthenticationEntiryPoint```를 통해 Credential을 요구하는데, 이는 Username/Password 방식이라면 로그인 페이지로 리다이렉트 된다. 만약 여기서 인증에 성공하면 캐시에 저장된 원래 요청을 처리한다. 
+
+```AccessDeniedException```라면 그 처리를 ```AccessDeniedHandler```에게 위임하게 된다.
+
+![exception-translation-handler](exception-translation-filter.png)
 
 <br/>
 
@@ -250,59 +311,3 @@ public class UserRepositoryUserDetailService implements UserDetailsService {
 - [Spring Security Reference](https://docs.spring.io/spring-security/site/docs/current/reference/html5/)
 - [Topical Guide](https://spring.io/guides/topicals/spring-security-architecture)
 - Craig Walls, Spring in Action 5/E, 심재철, 제이펍  
-  
---------------------------------------------------------------------------
-
-정리해야할 것
-
-9.6. Handling Security Exceptions
-10.9. AbstractAuthenticationProcessingFilter
-10.19 Run-As Authentication Replacement
-11.1 Authorization Architecture
-11.2 Authrozie HttpServletRequest with FilterSecurityInterceptor
-11.3 Expression-Based Access Control
-
-AccessDecisionManager
-Access Control 결정을 내리는 인터페이스... 3가지 구현체를 기본 제공
-
-AffirmativeBased : 여러 Voter 중 한 명이라도 허용하면 허용이며 기본 전략
-ConsensusBased : 다수결
-UnanimousBase : 만장일치
-
-ExceptionTranslationFilter
-
-앞의 FilterSecurityInterceptor에서 발생한 AuthenticationException과 AccessDeniedException 발생 시.. 처리
-
-Authentication Exception 발생하면
-authenticationEntryPoint 실행
-AbstractSecurityInterceptor 하위 클래스(예, FilterSecurityInterceptor)에서 발생하는 예외만 처리.
-그렇다면 UsernamePasswordAuthenticationFilter에서 발생한 인증 에러는?
-
-AccessDeniedException 발생 시
-익명 사용자라면 AuthenticationEntryPoint 실행 (로그인)
-익명 사용자가 아니면 AccessDeniedHandler에게 위임
-
-#### ```authorizeRequests()```  
-
-```authorizeRequests()``` 는 URL 경로와 패턴에 대한 요구사항을 구성할 수 있다. 
-위 코드에서 "/design"과 "/order"은 ROLE_USER 권한이 있어야하고, 그 외의 페이지는 모두 접근이 허용된다는 의미이다. 
-그리고 이를 구성할 때 주의할 점은 순차적으로 패턴을 검사해서 매칭 검사를 하게 되므로 순서가 중요하다. 
-이 경우 ```antMatchers```의 순서를 바꾸면 "/design"과 "/order" 모두 ```.antMatchers("/", "/**").permitAll()``` 에 걸려 인증 없이 접근이 된다.
-
-|method|description|
-|:---|:---|
-|```hasRole(String)```|해당 롤을 가지고 있어야 허용한다|
-|```permitAll()```|접근을 모두 허용한다||
-|```anonymous()```|익명 사용자의 접근도 허용한다|
-|```authenticated()```|익명이 아닌 인증된 사용자면 허용한다|
-|```rememberMe()```|이전 로그인 정보가 쿠키나 DB에 남아있을 때 허용한다|
-|```fullyAuthenticated()```|익명이 아니거나 remember-me가 아닌 사용자면 허용한다|
-|```hasAuthority(String)```|지정된 권한을 가지고 있으면 허용한다|
-|```hasAnyAuthority(String...)```|지정된 권한 중 하나 이상을 가지고 있으면 허용한다|
-|```hasRole(String)```|지정된 역할을 가지고 있으면 허용한다|
-|```hasAnyRole(String...)```|지정된 역할 중 하나 이상을 가지고 있으면 허용한다|
-|```hasIpAddress(String)```|지정된 IP의 요청을 허용한다|
-|```not()```|다른 접근 메서드를 무효화한다|
-|```access(String)```|인자로 전달된 SpEL 식이 참이면 허용한다|
-
-------------------------------------------------------------------------------------------------
