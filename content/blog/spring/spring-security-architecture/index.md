@@ -284,9 +284,10 @@ Spring Mvc에서는 각 ```HttpServletRequest```에 대한 룰을 아래 페이�
 ![access-decision-voting](access-decision-voting.png)
 
 최종 결과가 접근 거부라면 후속 작업을 ```ExceptionTranslationFilter``` 에서 처리된다. 
-이 필터는 아래 pseudo code처럼 ```FilterSecurityInteceptor```를 감싸고 있다. 
+이 필터는 아래 코드처럼 ```FilterSecurityInteceptor```를 감싸고 있다. 
 
 ``` java
+// pseudo code
 try {
     // FilterSecurityInterceptor 또는 Method Security 호출
 } catch (AccessDeniedException | AuthenticationException ex) {
