@@ -2,8 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `개발 일지`,
     author: {
-      name: `Song`,
-      summary: ``,
+      name: `stalker5217`,
+      summary: `🙁`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://stalker5217.netlify.app/`,
