@@ -10,7 +10,7 @@ const Pager = ({ pageContext }) => {
   const prevPage = currentPage - 1 === 1 ? '/' : '/' + (currentPage - 1).toString()
   const nextPage = '/' + (currentPage + 1).toString();
   
-  const showingPageCnt = 10
+  const showingPageCnt = 5
   let rangeStartPage = (Math.floor((currentPage - 1) / showingPageCnt) * showingPageCnt);
   if(rangeStartPage + showingPageCnt > numPages) rangeStartPage = numPages - showingPageCnt
 
