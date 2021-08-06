@@ -323,7 +323,29 @@ a:focus {
   margin-left: var(--spacing-1);
   margin-right: var(--spacing-1);
   color: #f8871c;
-  font-size: var(--fontSize-0)
+  font-size: var(--fontSize-0);
+}
+
+.page-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+}
+
+.page-list-element {
+  margin: 0;
+}
+
+.page-list-element > a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.page-list-element.on > a {
+  color: #d40000;
 }
 
 /* Media queries */
