@@ -105,7 +105,7 @@ JS를 통해서 이러한 이벤트를 listen하고, 어떻게 handle할 지를 
     ```
 
     ``` javascript
-    // Java Script
+    // js
     function clickBtn(){
       alert('click!');
     }
@@ -123,7 +123,7 @@ JS를 통해서 이러한 이벤트를 listen하고, 어떻게 handle할 지를 
     ```
 
     ``` javascript
-    // Java Script
+    // js
 
     // element.onevent = functionName; 의 구조를 가짐
     var el = document.getElementById('myDiv');
@@ -142,7 +142,7 @@ JS를 통해서 이러한 이벤트를 listen하고, 어떻게 handle할 지를 
     ```
 
     ``` javascript
-    // Java Script
+    // js
 
     /*
      * element.addEventListener('event', functionName [, capture(boolean)]) 
