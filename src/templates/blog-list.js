@@ -34,6 +34,7 @@ const BlogIndex = ({ data, pageContext, location }) => {
 				{posts.map(post => {
 				const title = post.frontmatter.title || post.fields.slug
 				const indexImage = post.frontmatter.indexImage
+				const tags = post.frontmatter.tags;
 
 				return (
 					<li key={post.fields.slug}>
@@ -48,7 +49,13 @@ const BlogIndex = ({ data, pageContext, location }) => {
 							<span itemProp="headline">{title}</span>
 							</Link>
 						</h2>
-						<small>{post.frontmatter.date}</small>
+
+						<small>{post.frontmatter.date}</small> 
+						&nbsp; &#183;
+						{tags.map(tag => <span className="post-tag">#{tag}</span>)}
+						
+						<br/>
+
 						</header>
 						{
 							indexImage && (
@@ -99,6 +106,7 @@ export const pageQuery = graphql`
           date(formatString: "MMMM DD, YYYY")
           title
           description
+		  tags
           indexImage {
             childImageSharp {
               fluid(maxWidth: 630) {
