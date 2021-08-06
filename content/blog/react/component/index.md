@@ -4,7 +4,7 @@ date: '2020-12-12'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '컴포넌트란 무엇인가 알아봅시다'
 indexImage: './cover.png'

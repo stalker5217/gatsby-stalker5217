@@ -4,7 +4,7 @@ date: '2020-11-27'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '리액트란 무엇인가 알아봅시다'
 indexImage: './cover.png'

@@ -4,7 +4,7 @@ date: '2021-01-12'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: 'Hooks에 대해 알아봅시다'
 indexImage: './cover.png'

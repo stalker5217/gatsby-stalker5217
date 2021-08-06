@@ -4,7 +4,7 @@ date: '2020-12-31'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: 'DOM에 네이밍하는 법을 알아봅시다'
 indexImage: './cover.png'

@@ -4,7 +4,7 @@ date: '2021-02-20'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '리액트에서 Redux를 사용해 봅시다.'
 indexImage: './cover.png'
@@ -363,6 +363,69 @@ export default React.memo(CounterContainer);
 ```connect```를 사용하는 방법은 부모 컴포넌트에서 렌더링이 발생했을 때, 
 ```props``` 값이 변하지 않았다면 렌더링을 방지해주는 기능이 포함되어 있어 성능 최적화가 이미 되어있다. 
 하지만 훅을 사용한 방법에는 적용되어 있지 않으며, 필요한 경우 명시적으로 ```React.memo```를 통해 최적화를 진행해야 한다.
+
+## 리덕스 미들웨어  
+
+리덕스 미들웨어는 비동기 작업을 효율적으로 관리한다. 
+대표적으로 API 서버와 연동을 할 때는 비동기 요청이 필수적으로 포함된다. 
+
+액션이 디스패치되면 리듀서에서 작업을 처리하게 되는데, 
+이름 처럼 미들웨어는 액션과 리듀서 **사이**에 존재하게 된다. 
+
+리듀서로 액션이 전달되기에 앞서 여러 작업을 처리한다. 
+특정 조건에 따라 액션을 무시하기도 하고, 다른 액션을 디스패치 한다거나 액션의 정보를 가공하는 등의 작업이 이루어진다. 
+
+``` js
+function MyMiddleware(store){
+	return function(next){
+		return function(action){
+			console.log(store.getState()); // 이전 상태
+			next(action);
+			console.log(store.getState()); // 이후 상태
+		}
+	}
+}
+```
+
+미들웨어의 구조는 위와 같이 구성되어 있다. 
+```next```의 역할은 다음 미들웨어, 다음 미들웨어가 없다면 리듀서에게 액션을 전달하는 함수이다. 
+
+그리고 미들웨어는 ```store```를 생성할 때 적용하게 된다. 
+
+``` js
+const store = createStore(rootReducer, applyMiddleware(loggerMiddleware));
+```
+
+실제로 미들웨어를 직접 생성할 일은 거의 없다. 
+구조를 파악하고 잘 만들어진 미들웨어를 가져다 쓰면 된다. 
+위 코드 처럼 logger를 담당하는 미들웨어도 이미 존재하며 ```redux-logger```를 끌어다 쓰면 된다. 
+
+
+### redux-thunk  
+
+비동기 작업을 처리할 수 있는 기본적인 미들웨어이며, 
+객체가 아닌 함수 형태의 액션을 디스패치할 수 있는 것이 큰 특징이다. 
+
+먼저 **thunk**는 쉽게 말하면, 특정 연산을 필요할 때 계산할 수 있도록 함수 형태로 감싸는 것을 의미한다. 
+
+``` js
+const addOne = x => x + 1;
+addOne(1); // 호출 시점에서 연산
+```
+
+``` js
+const addOneThunk = (x) => {
+	return x => x + 1;
+};
+
+const fn = addOneThunk(1);
+setTimeout(() => {
+	const value = fn(); // 연산되는 시점
+}, 1000)
+```
+
+
+
 
 <br/>
 

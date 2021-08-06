@@ -4,7 +4,7 @@ date: '2021-01-10'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '리액트에서 반복 요소를 처리하는 법을 알아봅시다'
 indexImage: './cover.png'

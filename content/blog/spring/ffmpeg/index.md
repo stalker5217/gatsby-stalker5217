@@ -5,6 +5,7 @@ categories:
   - spring
 tags:
   - spring
+  - ffmpeg
 description: '스프링에서 오디오 파일 정보 추출을 하는 법을 알아봅시다'
 indexImage: './cover.png'
 ---

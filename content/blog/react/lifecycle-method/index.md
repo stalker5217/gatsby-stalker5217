@@ -4,7 +4,7 @@ date: '2021-01-11'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '라이프사이클 메서드에 대해 알아봅시다'
 indexImage: './cover.png'

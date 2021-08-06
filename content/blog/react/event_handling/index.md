@@ -4,7 +4,7 @@ date: '2020-12-15'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '이벤트 핸들링하는 법에 대해 알아봅시다'
 indexImage: './cover.png'

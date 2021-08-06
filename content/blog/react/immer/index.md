@@ -4,7 +4,7 @@ date: '2021-02-02'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '불변성을 유지하는 방법을 알아봅시다'
 indexImage: './cover.png'

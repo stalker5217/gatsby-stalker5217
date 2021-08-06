@@ -1,10 +1,10 @@
 ---
 title: '[React] 코드 스플릿팅'
-date: '2020-02-12'
+date: '2021-01-25'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: '리액트 애플리케이션의 배포와 코드 스플릿팅에 대해 알아봅시다'
 indexImage: './cover.png'

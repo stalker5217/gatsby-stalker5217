@@ -4,7 +4,7 @@ date: '2021-02-03'
 categories:
   - react
 tags:
-  - java script
+  - javascript
   - react
 description: 'SPA(Single Page Application)에 대하여 알아봅시다'
 indexImage: './cover.png'
