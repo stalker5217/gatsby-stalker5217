@@ -31,7 +31,8 @@ const BlogIndex = ({ data, pageContext, location }) => {
 			<Bio />
 			
 			<ol style={{ listStyle: `none` }}>
-				{posts.map(post => {
+			{
+				posts.map(post => {
 				const title = post.frontmatter.title || post.fields.slug
 				const indexImage = post.frontmatter.indexImage
 				const tags = post.frontmatter.tags;
@@ -52,7 +53,10 @@ const BlogIndex = ({ data, pageContext, location }) => {
 
 						<small>{post.frontmatter.date}</small> 
 						&nbsp; &#183;
-						{tags.map(tag => <span className="post-tag">#{tag}</span>)}
+						{tags.map(tag => {
+							const randomKey = Math.random().toString(36).substr(2,11)
+							return (<span key={randomKey} className="post-tag">#{tag}</span>);
+						})}
 						
 						<br/>
 
@@ -75,7 +79,8 @@ const BlogIndex = ({ data, pageContext, location }) => {
 					</article>
 					</li>
 				)
-				})}
+				})
+			}
 			</ol>
 
 			<Pager pageContext={pageContext} />
