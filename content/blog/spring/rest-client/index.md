@@ -1,10 +1,11 @@
 ---
-title: '[Spring] HTTP 요청하기'
+title: '[Spring] HTTP Client'
 date: '2021-02-02'
 categories:
   - spring
 tags:
   - spring
+  - http client
 description: '스프링이 클라이언트가 되어 HTTP 요청을 하는 법을 알아봅시다'
 indexImage: './cover.png'
 ---
@@ -48,7 +49,7 @@ public static JSONObject get(String uri){
 ## RestTemplate  
 
 스프링 3.0에서부터는 이런 HTTP Client 코드를 기본적으로 제공하고 있다. 
-```RestTemplate``` 객체를 직접 생성하거나, 빈으로 등록하여 사용하면 된다. 
+```RestTemplate``` 객체를 직접 생성하거나, ```RestTemplateBuilder```를 주입 받아 사용할 수 있다. 
 
 - ```delete(...)```
 - ```exchange(...)```
@@ -65,6 +66,7 @@ public static JSONObject get(String uri){
 각 메소드는 URL String 또는 ```java.net.URI```, Map<String, String>에 담겨있는 URL 필드를 처리할 수 있다. 
 
 ``` java
+@Data
 class Post {
     private String userId;
     private String id;
@@ -116,6 +118,28 @@ String ingredientsUrl = traverson
 
 ```asLink()``` 메서드를 통해 링크를 요청하고 ```getHref()```를 통해 URL 값을 가져올 수 있다. 
 
+## WebClient  
+
+위의 예제들은 Blocking I/O 기반으로 synchronous하게 동작한다.  
+
+하지만 스프링 5.0에서 부터 지원하는 Spring webflux에서는 Non-Blocking I/O 기반 non-synchronous API인 ```WebClient```를 제공하고 있다. 
+추세가 비동기 기반으로 바뀌고 있기 때문에 ```RestTemplate``` API 문서에서도 ```WebClient```를 사용할 수 있는 상황이라면 이를 사용할 것을 적극 권고하고 있다. 
+webflux 기반 어플리케이션이 아니더라도, webflux 의존성을 추가하여 해당 기능을 사용할 수 있다. 
+
+``` java
+WebClient webClient = webClientBuilder.build();
+Mono<Post> webClientSample = webClient.get()
+		.uri("https://jsonplaceholder.typicode.com/posts/{id}", 1)
+		.retrieve()
+		.bodyToMono(Post.class);
+
+webClientSample.subscribe(result -> {
+	log.info(result.getUserId());
+	log.info(result.getId());
+	log.info(result.getTitle());
+	log.info(result.getBody());
+});
+```
 
 <br/>
 
