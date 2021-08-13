@@ -1,15 +1,16 @@
 ---
 title: '[Spring] 캐시'
-date: '2021-02-07'
+date: '2021-08-13'
 categories:
   - spring
 tags:
   - spring
+  - cache
 description: '스프링에서 캐시를 사용하는 법에 대해 알아봅시다'
 indexImage: './cover.png'
 ---
 
-### 캐시  
+## Cache    
 
 캐시는 임시 저장소, 접근 시간을 줄이기 위해 미리 자주 사용되는 것들을 별도의 공간에 저장해두는 것을 말한다. 
 스프링에서도 메소드 단위로 캐시를 적용하여 서비스 할 수 있다. 
@@ -131,7 +132,7 @@ public User findUser(User user){
 }
 ```
 
-### @CacheEvict  
+### ```@CacheEvict``` 
 
 캐시는 동일 조건에서 결과 자주 바뀌지 않는 메소드에 사용한다. 
 하지만 결과가 자주 바뀌지 않는다는 의미지 절대 바뀌지 않는다는 의미가 아니다. 
@@ -168,6 +169,49 @@ public void updateProduct(Product product){
 > ```@CachePut```  
 > 자주 사용되지는 않지만 적용된 메서드에서는 ```Cacheable``` 처럼 캐시를 쌓아가지만 본인이 직접 사용하지는 않는다. 
 > 그냥 다른 곳에서 사용을 위해 본인은 묵묵히 캐시를 쌓는 친구이다. 
+
+## Cache Manager  
+
+앞선 내용은 스프링에서 캐시를 사용할 수 있게 추상화한 것이다. 
+실제로 캐시를 적용할 어디에 어떻게 저장할 것인가를 정해 이에 관한 설정을 해야한다. 
+이는 ```CacheManager``` 인터페이스를 구현해야 하는데, 스프링에서는 기본적으로 5가지 구현체를 제공하고 있다. 
+
+**ConcurrentMapCacheManager**  
+말 그대로 conccurent 패키지의 ```ConcurrentMap``` 클래스를 이용해 캐시를 구현한다. 
+```Map```을 기반으로 캐시를 메모리에 저장하는데, 간편하게 사용할 수는 있으나 기능은 빈약하다. 
+캐시의 양이 적고 고급 기능이 필요 없는 케이스 또는 테스트에 활용할 수 있다. 
+
+**SimpleCacheManager**  
+특정한 캐시를 제공하는 것은 아니다. 
+캐시를 사용하기 위해 ```Cache``` 클래스를 직접 구현했을 때 사용할 수 있는데, 이를 통해 프로퍼티를 직접 설정하여 빈 등록이 가능하다. 
+
+**EhCacheCacheManager**  
+자바에서 많이 사용하는 캐시 프레임워크 중 하나이다. 
+Redis와 같이 별도의 서버 환경을 사용하는 것이 아니라, 로컬 캐시로 동작한다. 
+디스크, 메모리 저장이 가능하며 피어 간 분산 캐시 구성도 가능하다. 
+
+``` java
+@Bean
+public CacheManager cacheManager(net.sf.ehcache.CacheManager cacheManager) {
+	EhCacheCacheManager eccm = new EhCacheManager();
+	eccm.setCacheManager(cacheManager);
+	
+	return eccm;
+}
+
+@Bean
+public EhCacheManagerFactoryBean ehCacheCacheManager() {
+	EhCacheManagerFactoryBean factory = new EhCacheManagerFactoryBean();
+	factory.setConfigLocation(new ClassPathResource("ehcache.xml"), getClass()); // EhCache에 대한 설정은 xml로 별도로 작성해야 한다.
+
+	return factory;
+}
+```
+
+**CompositeCacheManager, NoOpCacheManager**  
+```CompositeCacheManager```는 여러 개의 캐시 매니저를 사용할 때 이를 지원해주는 캐시 매니저이다. 
+여기서 addNoOpCache를 true로 지정하면 ```NoOpCache```를 추가해주는데, 
+이는 캐시를 지원하지 환경에서 동작할 때 캐시 관련 내용을 제거하지 않아도 에러가 나지 않게 한다. 
 
 <br/>
 
