@@ -11,7 +11,7 @@ tags:
   - Sentence Clustering
   - K-Means
 description: 'Universal Sentence Encoder를 사용한 문장 클러스터링을 해봅시다.'
-indexImage: '../cover.png'
+indexImage: './cover.png'
 ---
 
 # Sentence Clustering  
