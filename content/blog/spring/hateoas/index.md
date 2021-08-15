@@ -46,7 +46,7 @@ REST API를 만들기 위해서는 REST 설계 원칙 중 HATEOAS(Hypermedia As 
 
 먼저 스프링부트에서는 스타터를 의존성에 추가함으로써 간단히 사용할 수 있다. 
 
-``` gradle
+``` groovy
 implementation group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas'
 ```
 

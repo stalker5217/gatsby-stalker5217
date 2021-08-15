@@ -64,7 +64,7 @@ set $service_url http://127.0.0.1:8081;
 
 ``` sudo vim /etc/nginx/nginx.conf ```로 설정 파일 수정
 
-``` conf
+```
 http {
     server {
         include /etc/nginx/conf.d/service-url.inc;
@@ -125,7 +125,7 @@ server.port=8081
 
 ## 배포 스크립트 작성
 
-``` sh
+``` bash
 #!/usr/bin/env bash
 
 # profile.sh
@@ -170,7 +170,7 @@ function find_idle_port()
 }
 ```
 
-``` sh
+``` bash
 # !/usr/bin/env bash
 
 # stop.sh
@@ -198,7 +198,7 @@ fi
 ```
 
 
-``` sh
+``` bash
 #!/usr/bin/env bash
 
 # start.sh
@@ -236,7 +236,7 @@ nohup java -jar \
     $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
 ```
 
-``` sh
+``` bash
 #!/usr/bin/env bash
 
 # health.sh
@@ -281,7 +281,7 @@ do
 done
 ```
 
-``` sh
+``` bash
 #!/usr/bin/env bash
 
 # switch.sh

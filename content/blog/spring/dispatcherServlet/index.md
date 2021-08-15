@@ -97,7 +97,7 @@ web.xml에는 ```DispatcherServlet``` 가 수신할 URL 패턴이 지정되어 �
 클라이언트에 최종적으로 반환하는 것은 가장 흔한 예로는 HTML이다. 
 JSP를 예시로 들면, JSP의 뷰 템플릿이 모델을 참조하여 최종적인 결과물을 만들어준다. 
 
-``` jsp
+``` html
 <div> 이름 : ${name} </div>
 ```
 
