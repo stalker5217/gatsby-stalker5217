@@ -42,7 +42,7 @@ public class AppRunner implements ApplicationRunner {
 
 또한 JSP에서도 이를 활용하여 프로퍼티 값을 읽어 올 수 있다.
 
-``` jsp
+``` html
 <spring:eval expression="@environment.getProperty('spring.profiles.active')" var="activeProfile" />
 ```
 
