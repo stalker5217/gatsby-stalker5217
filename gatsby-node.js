@@ -72,6 +72,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+  createPage({
+    path: `/search`,
+    component: path.resolve('./src/templates/blog-search.js'),
+    context: {
+      
+    }
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {

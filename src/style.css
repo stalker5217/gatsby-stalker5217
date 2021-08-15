@@ -298,8 +298,12 @@ a:focus {
 .bio-avatar {
   margin-right: var(--spacing-4);
   margin-bottom: var(--spacing-0);
-  min-width: 50px;
+  min-width: 70px;
   border-radius: 100%;
+}
+
+.social-container {
+  margin-top: var(--spacing-2)
 }
 
 .blog-post header h1 {

@@ -6,15 +6,17 @@
  */
 
 import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import Image from "gatsby-image"
+import { AiOutlineGithub, AiOutlineFileSearch } from 'react-icons/ai'
+import { IconContext } from "react-icons/lib"
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.png/" }) {
         childImageSharp {
-          fixed(width: 50, height: 50, quality: 95) {
+          fixed(width: 65, height: 65, quality: 95) {
             ...GatsbyImageSharpFixed
           }
         }
@@ -52,16 +54,27 @@ const Bio = () => {
           }}
         />
       )}
-      {author?.name && (
-        <p>
-          <strong>{author.name}</strong> {author?.summary || null}
-          {` `}
-          <br/>
-          <a href={`https://github.com/${social?.github || ``}`}>
-            Github
-          </a>
-        </p>
-      )}
+      <div>
+        {author?.name && (
+          <div>
+            <p>
+              <strong> {author.name} </strong> 
+            </p>
+            {author ? <p> {author.summary} </p> : null} 
+          </div>
+        )}
+        <div className='social-container'>
+            <IconContext.Provider value={{ size: '2em', color: 'grey'}}>
+              <Link to='/search'>
+                <AiOutlineFileSearch/>
+              </Link>
+              
+              <Link to={`https://github.com/${social?.github || ``}`}>
+                <AiOutlineGithub/>
+              </Link>
+            </IconContext.Provider>
+        </div>
+      </div>
     </div>
   )
 }

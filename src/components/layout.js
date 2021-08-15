@@ -7,10 +7,12 @@ const Layout = ({ location, title, children }) => {
   const isPageListPath = 
     location.pathname === rootPath || 
     !isNaN(location.pathname.replace(rootPath, ''))
+
+  const isSearchPath = location.pathname === '/search'
   
   let header
 
-  if (isPageListPath) {
+  if (isPageListPath || isSearchPath) {
     header = (
       <h1 className="main-heading">
         <Link to="/">{title}</Link>
