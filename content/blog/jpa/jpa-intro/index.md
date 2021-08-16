@@ -1,8 +1,8 @@
 ---
-title: '[Java] SQL 중심 개발의 문제점과 JPA 사용 이유'
+title: 'SQL 중심 개발의 문제점과 JPA 사용 이유'
 date: '2021-08-16'
 categories:
-  - java
+  - jpa
 tags:
   - java
   - jpa
