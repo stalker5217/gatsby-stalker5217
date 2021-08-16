@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Range Request 요청 처리'
+title: 'Range Request 요청 처리'
 date: '2021-07-10'
 categories:
   - spring

@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring Actuator'
+title: 'Spring Actuator'
 date: '2021-07-11'
 categories:
   - spring

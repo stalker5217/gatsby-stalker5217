@@ -1,5 +1,5 @@
 ---
-title: '[STL] Generic Programming'
+title: 'Generic Programming'
 date: '2020-03-02'
 categories:
   - cpp

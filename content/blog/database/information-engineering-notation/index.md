@@ -1,5 +1,5 @@
 ---
-title: '[Database] 데이터 모델링 - I/E 표기법'
+title: '데이터 모델링 - I/E 표기법'
 date: '2020-08-17'
 categories:
   - database

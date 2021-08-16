@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Strict Weak Order'
+title: 'Strict Weak Order'
 date: '2020-04-04'
 categories:
   - algorithm

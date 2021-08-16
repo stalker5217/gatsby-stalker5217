@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 플로이드-와샬 알고리즘'
+title: '플로이드-와샬 알고리즘'
 date: '2020-09-20'
 categories:
   - algorithm

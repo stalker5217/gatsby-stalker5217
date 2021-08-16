@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Queue, Stack, Deque'
+title: 'Queue, Stack, Deque'
 date: '2020-08-03'
 categories:
   - algorithm

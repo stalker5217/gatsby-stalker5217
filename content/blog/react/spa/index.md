@@ -1,5 +1,5 @@
 ---
-title: '[React] SPA'
+title: 'SPA'
 date: '2021-02-03'
 categories:
   - react

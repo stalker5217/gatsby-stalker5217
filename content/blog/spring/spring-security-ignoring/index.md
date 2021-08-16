@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring Security - 보안 예외 처리'
+title: 'Spring Security - 보안 예외 처리'
 date: '2021-07-28'
 categories:
   - spring

@@ -1,5 +1,5 @@
 ---
-title: '[STL] lower_bound, upper_bound'
+title: 'lower_bound, upper_bound'
 date: '2020-05-04'
 categories:
   - cpp

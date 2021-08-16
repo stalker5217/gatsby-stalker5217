@@ -1,5 +1,5 @@
 ---
-title: '[Spring] 웹 애플리케이션 배포 방식 비교'
+title: '웹 애플리케이션 배포 방식 비교'
 date: '2021-07-17'
 categories:
   - spring

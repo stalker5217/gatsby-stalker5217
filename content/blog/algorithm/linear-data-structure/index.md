@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 선형 자료 구조'
+title: '선형 자료 구조'
 date: '2020-08-01'
 categories:
   - algorithm

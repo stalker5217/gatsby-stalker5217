@@ -1,5 +1,5 @@
 ---
-title: '[Spring] @MVC Controller 파라미터'
+title: '@MVC Controller 파라미터'
 date: '2021-02-07'
 categories:
   - spring

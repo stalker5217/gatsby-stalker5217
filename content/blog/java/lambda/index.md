@@ -1,5 +1,5 @@
 ---
-title: '[Java] 람다식(Lambda Expression)'
+title: '자바 람다식(Lambda Expression)'
 date: '2020-05-17'
 categories:
   - java

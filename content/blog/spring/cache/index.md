@@ -1,5 +1,5 @@
 ---
-title: '[Spring] 캐시'
+title: '캐시 추상화'
 date: '2021-08-13'
 categories:
   - spring

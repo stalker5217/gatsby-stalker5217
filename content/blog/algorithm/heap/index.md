@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 우선순위 큐 & 힙'
+title: '우선순위 큐 & 힙'
 date: '2020-10-22'
 categories:
   - algorithm

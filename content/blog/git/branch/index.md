@@ -1,5 +1,5 @@
 ---
-title: '[GIT] Branch'
+title: 'Git Branch'
 date: '2020-02-11'
 categories:
   - git

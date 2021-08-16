@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 트라이'
+title: '트라이'
 date: '2020-11-20'
 categories:
   - algorithm

@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Brute Force'
+title: 'Brute Force'
 date: '2020-11-16'
 categories:
   - algorithm

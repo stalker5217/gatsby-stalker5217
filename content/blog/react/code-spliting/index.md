@@ -1,5 +1,5 @@
 ---
-title: '[React] 코드 스플릿팅'
+title: '코드 스플릿팅'
 date: '2021-01-25'
 categories:
   - react

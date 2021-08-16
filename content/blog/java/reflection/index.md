@@ -1,5 +1,5 @@
 ---
-title: '[Java] 리플렉션'
+title: '자바 리플렉션'
 date: '2020-12-02'
 categories:
   - java

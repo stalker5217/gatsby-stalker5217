@@ -1,5 +1,5 @@
 ---
-title: '[C++] 인라인 함수(Inline function)'
+title: '인라인 함수(Inline function)'
 date: '2020-03-30'
 categories:
   - cpp

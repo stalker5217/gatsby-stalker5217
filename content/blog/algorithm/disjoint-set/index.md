@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 상호 배타적 집합'
+title: '상호 배타적 집합'
 date: '2020-10-22'
 categories:
   - algorithm

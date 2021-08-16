@@ -1,5 +1,5 @@
 ---
-title: '[Spring] HTTP Client'
+title: 'HTTP Client'
 date: '2021-02-02'
 categories:
   - spring

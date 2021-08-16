@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Suffix Array'
+title: 'Suffix Array'
 date: '2020-06-14'
 categories:
   - algorithm

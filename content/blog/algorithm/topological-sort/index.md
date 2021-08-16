@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Topological Sort'
+title: 'Topological Sort'
 date: '2020-11-25'
 categories:
   - algorithm

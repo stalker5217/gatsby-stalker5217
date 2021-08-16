@@ -1,5 +1,5 @@
 ---
-title: '[React] Hooks'
+title: 'Hooks'
 date: '2021-01-12'
 categories:
   - react

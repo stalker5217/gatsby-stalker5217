@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Graph'
+title: 'Graph'
 date: '2020-09-14'
 categories:
   - algorithm

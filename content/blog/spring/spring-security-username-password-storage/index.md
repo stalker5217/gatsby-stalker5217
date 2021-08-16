@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring Security - Username and Password Storage'
+title: 'Spring Security - Username and Password Storage'
 date: '2021-07-25'
 categories:
   - spring

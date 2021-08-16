@@ -1,5 +1,5 @@
 ---
-title: '[Spring] configuration'
+title: 'configuration & profile'
 date: '2021-03-02'
 categories:
   - spring

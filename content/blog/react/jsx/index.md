@@ -1,5 +1,5 @@
 ---
-title: '[React] JSX'
+title: 'JSX'
 date: '2020-12-01'
 categories:
   - react

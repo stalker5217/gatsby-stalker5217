@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring Security - Architecture'
+title: 'Spring Security - Architecture'
 date: '2021-07-31'
 categories:
   - spring

@@ -1,5 +1,5 @@
 ---
-title: '[STL] unique'
+title: 'unique'
 date: '2020-05-04'
 categories:
   - cpp

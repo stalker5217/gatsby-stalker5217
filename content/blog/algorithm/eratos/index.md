@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 에라토스테네스의 체'
+title: '에라토스테네스의 체'
 date: '2020-05-12'
 categories:
   - algorithm

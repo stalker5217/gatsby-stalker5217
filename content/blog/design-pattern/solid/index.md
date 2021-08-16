@@ -1,5 +1,5 @@
 ---
-title: '[Design Pattern] SOLID 원칙'
+title: 'SOLID 원칙'
 date: '2020-12-16'
 categories:
   - design-pattern

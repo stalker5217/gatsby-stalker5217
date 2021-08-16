@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 네트워크 유량'
+title: '네트워크 유량'
 date: '2020-10-09'
 categories:
   - algorithm

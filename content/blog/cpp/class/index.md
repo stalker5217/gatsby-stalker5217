@@ -1,5 +1,5 @@
 ---
-title: '[C++] 클래스 (Class)'
+title: '클래스 (Class)'
 date: '2020-03-30'
 categories:
   - cpp

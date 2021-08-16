@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Data Binding'
+title: 'Data Binding'
 date: '2021-08-14'
 categories:
   - spring

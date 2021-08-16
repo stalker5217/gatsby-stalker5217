@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Tree'
+title: 'Tree'
 date: '2020-08-04'
 categories:
   - algorithm

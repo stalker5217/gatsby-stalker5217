@@ -1,5 +1,5 @@
 ---
-title: '[STL] next_permutation'
+title: 'next_permutation'
 date: '2020-05-04'
 categories:
   - cpp

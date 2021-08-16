@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 이분 매칭'
+title: '이분 매칭'
 date: '2020-10-11'
 categories:
   - algorithm

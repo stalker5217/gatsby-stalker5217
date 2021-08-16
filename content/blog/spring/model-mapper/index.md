@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Model Mapper'
+title: 'Model Mapper'
 date: '2021-03-13'
 categories:
   - spring

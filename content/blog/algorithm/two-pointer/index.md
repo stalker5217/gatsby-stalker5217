@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Two Pointers & Sliding Window'
+title: 'Two Pointers & Sliding Window'
 date: '2020-11-24'
 categories:
   - algorithm

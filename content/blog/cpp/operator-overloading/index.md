@@ -1,5 +1,5 @@
 ---
-title: '[STL] 연산자 오버로딩'
+title: '연산자 오버로딩'
 date: '2020-03-31'
 categories:
   - cpp

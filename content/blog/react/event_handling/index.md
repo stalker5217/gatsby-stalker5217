@@ -1,5 +1,5 @@
 ---
-title: '[React] 이벤트'
+title: '이벤트'
 date: '2020-12-15'
 categories:
   - react

@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Treap'
+title: 'Treap'
 date: '2020-08-15'
 categories:
   - algorithm

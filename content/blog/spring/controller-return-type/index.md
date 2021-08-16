@@ -1,5 +1,5 @@
 ---
-title: '[Spring] @MVC Controller의 리턴 값'
+title: '@MVC Controller의 리턴 값'
 date: '2021-02-07'
 categories:
   - spring

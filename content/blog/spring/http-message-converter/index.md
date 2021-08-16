@@ -1,5 +1,5 @@
 ---
-title: '[Spring] HttpMessageConverter'
+title: 'HttpMessageConverter'
 date: '2021-07-09'
 categories:
   - spring

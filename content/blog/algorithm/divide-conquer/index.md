@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 분할 정복'
+title: '분할 정복'
 date: '2020-10-22'
 categories:
   - algorithm

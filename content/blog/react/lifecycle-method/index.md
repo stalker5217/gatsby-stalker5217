@@ -1,5 +1,5 @@
 ---
-title: '[React] LifeCycle Method'
+title: 'LifeCycle Method'
 date: '2021-01-11'
 categories:
   - react

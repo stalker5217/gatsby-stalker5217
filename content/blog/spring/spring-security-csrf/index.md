@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring Security - CSRF 방어'
+title: 'Spring Security - CSRF 방어'
 date: '2021-07-20'
 categories:
   - spring

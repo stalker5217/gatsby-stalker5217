@@ -1,5 +1,5 @@
 ---
-title: '[Spring] 요청 예외 처리'
+title: '요청 예외 처리'
 date: '2021-08-08'
 categories:
   - spring

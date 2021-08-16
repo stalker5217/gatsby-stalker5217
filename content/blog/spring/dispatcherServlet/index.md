@@ -1,5 +1,5 @@
 ---
-title: '[Spring] MVC와 DispatcherServlet'
+title: 'MVC와 DispatcherServlet'
 date: '2021-02-10'
 categories:
   - spring

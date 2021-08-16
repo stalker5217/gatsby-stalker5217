@@ -1,5 +1,5 @@
 ---
-title: '[React] 불변성 유지'
+title: '불변성 유지'
 date: '2021-02-02'
 categories:
   - react

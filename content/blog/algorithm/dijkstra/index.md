@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 다익스트라 알고리즘'
+title: '다익스트라 알고리즘'
 date: '2020-09-18'
 categories:
   - algorithm

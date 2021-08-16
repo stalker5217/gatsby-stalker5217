@@ -1,5 +1,5 @@
 ---
-title: '[GCP] Cloud Functions Cold Start'
+title: 'Cloud Functions Cold Start'
 date: '2020-08-15'
 categories:
   - Cloud

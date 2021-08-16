@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 정렬'
+title: '정렬'
 date: '2020-11-05'
 categories:
   - algorithm

@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Dynamic Programming'
+title: 'Dynamic Programming'
 date: '2020-11-27'
 categories:
   - algorithm

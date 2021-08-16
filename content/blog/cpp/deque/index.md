@@ -1,5 +1,5 @@
 ---
-title: '[STL] Deque'
+title: 'Deque'
 date: '2020-03-11'
 categories:
   - cpp

@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring Security - 접근 제어 설정'
+title: 'Spring Security - 접근 제어 설정'
 date: '2021-07-29'
 categories:
   - spring

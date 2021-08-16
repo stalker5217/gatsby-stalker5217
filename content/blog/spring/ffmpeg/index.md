@@ -1,5 +1,5 @@
 ---
-title: '[Spring] FFMPEG를 이용한 오디오 정보 추출'
+title: 'FFMPEG를 이용한 오디오 정보 추출'
 date: '2021-08-04'
 categories:
   - spring
@@ -10,7 +10,7 @@ description: '스프링에서 오디오 파일 정보 추출을 하는 법을 �
 indexImage: './cover.png'
 ---
 
-프로젝트 진행 증 오디오 파일 길이 등 메타 정보를 읽어야할 필요가 생겼다. 
+프로젝트 진행 중 오디오 파일 길이 등 메타 정보를 읽어야할 필요가 생겼다. 
 JAVA SOUND API에서는 기본적으로 wav 파일에 대한 핸들링만 지원했기에 기타 다른 포맷의 오디오 파일은 읽을 수가 없었다. 
 
 대신 JAVA SOUND API에서는 다른 오디오 포맷을 위해 SPI(Service Provider Interface)를 제공하고 있으며 이를 구현한 몇 가지 서드파티 라이브러리를 찾을 수 있었다. 

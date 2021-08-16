@@ -1,5 +1,5 @@
 ---
-title: '[STL] Priority Queue(우선순위 큐)'
+title: 'Priority Queue(우선순위 큐)'
 date: '2020-03-14'
 categories:
   - cpp

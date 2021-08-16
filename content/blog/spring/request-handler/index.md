@@ -1,5 +1,5 @@
 ---
-title: '[Spring] @RequestMapping'
+title: '@RequestMapping'
 date: '2021-02-02'
 categories:
   - spring

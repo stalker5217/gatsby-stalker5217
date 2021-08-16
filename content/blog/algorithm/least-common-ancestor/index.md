@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 최소 공통 조상'
+title: '최소 공통 조상'
 date: '2020-12-03'
 categories:
   - algorithm

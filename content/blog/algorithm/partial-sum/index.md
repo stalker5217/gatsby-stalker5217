@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 부분 합 구하기'
+title: '부분 합 구하기'
 date: '2020-06-25'
 categories:
   - algorithm

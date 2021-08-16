@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 비트 마스크'
+title: '비트 마스크'
 date: '2020-06-11'
 categories:
   - algorithm

@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring Security - Custom Login & Logout'
+title: 'Spring Security - Custom Login & Logout'
 date: '2021-07-26'
 categories:
   - spring

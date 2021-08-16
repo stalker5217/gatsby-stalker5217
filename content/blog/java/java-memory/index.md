@@ -1,5 +1,5 @@
 ---
-title: '[Java] 자바 실행 구조 & 가비지 컬렉터'
+title: '자바 실행 구조 & 가비지 컬렉터'
 date: '2020-10-29'
 categories:
   - java

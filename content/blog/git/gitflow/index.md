@@ -1,5 +1,5 @@
 ---
-title: '[GIT] Git Flow'
+title: 'Git Flow'
 date: '2020-06-08'
 categories:
   - git

@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] KMP 알고리즘'
+title: 'KMP 알고리즘'
 date: '2020-05-23'
 categories:
   - algorithm

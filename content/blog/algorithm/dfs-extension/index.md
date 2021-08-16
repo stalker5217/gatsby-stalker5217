@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] DFS 응용'
+title: 'DFS 응용'
 date: '2020-12-06'
 categories:
   - algorithm

@@ -1,5 +1,5 @@
 ---
-title: '[Spring] SpEL'
+title: 'SpEL'
 date: '2021-03-09'
 categories:
   - spring

@@ -1,5 +1,5 @@
 ---
-title: '[React] ref'
+title: 'ref'
 date: '2020-12-31'
 categories:
   - react

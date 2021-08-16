@@ -1,5 +1,5 @@
 ---
-title: '[C++] Reference(참조자)'
+title: 'Reference(참조자)'
 date: '2020-03-19'
 categories:
   - cpp

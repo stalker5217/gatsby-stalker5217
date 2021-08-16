@@ -1,5 +1,5 @@
 ---
-title: '[React] 리액트는 무엇일까요?'
+title: '리액트는 무엇일까요?'
 date: '2020-11-27'
 categories:
   - react

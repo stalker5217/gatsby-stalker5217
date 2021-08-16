@@ -1,5 +1,5 @@
 ---
-title: '[Spring] lombok'
+title: 'lombok'
 date: '2021-02-04'
 categories:
   - spring

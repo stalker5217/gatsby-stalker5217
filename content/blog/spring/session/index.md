@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Session'
+title: 'Session'
 date: '2021-03-16'
 categories:
   - spring

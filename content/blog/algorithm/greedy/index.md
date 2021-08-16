@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Greedy algorithm'
+title: 'Greedy algorithm'
 date: '2020-11-29'
 categories:
   - algorithm

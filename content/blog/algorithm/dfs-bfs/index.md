@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] DFS, BFS'
+title: 'DFS, BFS'
 date: '2020-09-15'
 categories:
   - algorithm

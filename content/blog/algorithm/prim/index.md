@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 프림 알고리즘'
+title: '프림 알고리즘'
 date: '2020-10-02'
 categories:
   - algorithm

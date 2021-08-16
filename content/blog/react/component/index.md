@@ -1,5 +1,5 @@
 ---
-title: '[React] 컴포넌트'
+title: '컴포넌트'
 date: '2020-12-12'
 categories:
   - react

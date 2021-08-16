@@ -1,5 +1,5 @@
 ---
-title: '[STL] Pair'
+title: 'Pair'
 date: '2020-03-03'
 categories:
   - cpp

@@ -1,5 +1,5 @@
 ---
-title: '[HTML] 브라우저 캐시 방지'
+title: '브라우저 캐시 방지'
 date: '2020-03-25'
 categories:
   - html

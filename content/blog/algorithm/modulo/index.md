@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 오버플로우와 나머지 연산'
+title: '오버플로우와 나머지 연산'
 date: '2020-04-05'
 categories:
   - algorithm

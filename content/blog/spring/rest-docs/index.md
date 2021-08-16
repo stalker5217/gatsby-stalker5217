@@ -1,5 +1,5 @@
 ---
-title: '[Spring] Spring REST Docs'
+title: 'Spring REST Docs'
 date: '2021-06-26'
 categories:
   - spring

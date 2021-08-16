@@ -1,5 +1,5 @@
 ---
-title: '[Database] 데이터 정규화'
+title: '데이터 정규화'
 date: '2020-08-15'
 categories:
   - database

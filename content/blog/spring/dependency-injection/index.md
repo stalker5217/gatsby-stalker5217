@@ -1,5 +1,5 @@
 ---
-title: '[Spring] 의존성 주입'
+title: '의존성 주입'
 date: '2020-09-20'
 categories:
   - spring

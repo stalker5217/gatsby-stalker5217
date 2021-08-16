@@ -1,5 +1,5 @@
 ---
-title: '[Devops] Github Action을 사용한 Spring boot & gradle CI/CD 구축 - 1'
+title: 'Github Action을 사용한 Spring boot & gradle CI/CD 구축 - 1'
 date: '2020-06-28'
 categories:
   - devops

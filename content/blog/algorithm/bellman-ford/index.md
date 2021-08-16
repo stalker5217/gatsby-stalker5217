@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 벨만-포드 알고리즘'
+title: '벨만-포드 알고리즘'
 date: '2020-09-19'
 categories:
   - algorithm

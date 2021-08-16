@@ -1,5 +1,5 @@
 ---
-title: '[Java] 스트림 사용 시 주의사항'
+title: '스트림 사용 시 주의사항'
 date: '2021-01-01'
 categories:
   - java

@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 세그먼트 트리'
+title: '세그먼트 트리'
 date: '2020-10-31'
 categories:
   - algorithm

@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] Binary Search Tree'
+title: 'Binary Search Tree'
 date: '2020-08-09'
 categories:
   - algorithm

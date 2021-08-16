@@ -1,5 +1,5 @@
 ---
-title: '[React] Redux'
+title: 'Redux'
 date: '2021-02-20'
 categories:
   - react

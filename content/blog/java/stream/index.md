@@ -1,5 +1,5 @@
 ---
-title: '[Java] 스트림'
+title: '스트림'
 date: '2020-05-17'
 categories:
   - java

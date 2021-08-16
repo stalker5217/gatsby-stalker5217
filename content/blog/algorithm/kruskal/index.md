@@ -1,5 +1,5 @@
 ---
-title: '[Algorithm] 크루스칼 알고리즘'
+title: '크루스칼 알고리즘'
 date: '2020-09-28'
 categories:
   - algorithm

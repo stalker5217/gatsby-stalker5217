@@ -1,5 +1,5 @@
 ---
-title: '[STL] Vector'
+title: 'Vector'
 date: '2020-03-09'
 categories:
   - cpp

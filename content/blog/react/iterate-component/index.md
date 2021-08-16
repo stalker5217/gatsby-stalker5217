@@ -1,5 +1,5 @@
 ---
-title: '[React] 컴포넌트의 반복'
+title: '컴포넌트의 반복'
 date: '2021-01-10'
 categories:
   - react

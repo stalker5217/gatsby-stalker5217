@@ -1,5 +1,5 @@
 ---
-title: '[STL] Map'
+title: 'Map'
 date: '2020-03-14'
 categories:
   - cpp

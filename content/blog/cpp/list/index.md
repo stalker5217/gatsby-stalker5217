@@ -1,5 +1,5 @@
 ---
-title: '[STL] List'
+title: 'List'
 date: '2020-03-04'
 categories:
   - cpp
