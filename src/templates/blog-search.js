@@ -26,8 +26,8 @@ const BlogSearch = ( {data, location } ) => {
 
 			return (
 				(typeof(title) === 'string' && title.toLowerCase().indexOf(query.toLowerCase()) >= 0)
-				|| (Array.isArray(categories) && categories.map(s => s.toLowerCase()).includes(query.toLowerCase))
-				|| (Array.isArray(tags) && tags.map(s => s.toLowerCase()).includes(query.toLowerCase))
+				|| (Array.isArray(categories) && categories.map(s => s.toLowerCase()).includes(query.toLowerCase()))
+				|| (Array.isArray(tags) && tags.map(s => s.toLowerCase()).includes(query.toLowerCase()))
 			)
 		})
 
