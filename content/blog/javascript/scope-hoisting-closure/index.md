@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] scope & hoisting & closure'
+title: 'scope & hoisting & closure'
 date: '2021-08-09'
 categories:
   - javascript

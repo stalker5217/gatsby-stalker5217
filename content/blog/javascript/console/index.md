@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] Console'
+title: 'Console'
 date: '2020-03-23'
 categories:
   - javascript

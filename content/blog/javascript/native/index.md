@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] 네이티브'
+title: 'native'
 date: '2020-12-13'
 categories:
   - javascript

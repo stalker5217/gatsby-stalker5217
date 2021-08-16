@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] HTML 콘텐츠 수정'
+title: 'HTML 콘텐츠 수정'
 date: '2020-03-07'
 categories:
   - javascript

@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] Ajax'
+title: 'Ajax'
 date: '2020-03-22'
 categories:
   - javascript

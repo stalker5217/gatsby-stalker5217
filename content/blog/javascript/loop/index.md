@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] forEach, map, reduce'
+title: 'forEach, map, reduce'
 date: '2021-08-07'
 categories:
   - javascript

@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] 타입'
+title: '타입'
 date: '2020-05-12'
 categories:
   - javascript

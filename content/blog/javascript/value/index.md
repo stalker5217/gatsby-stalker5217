@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] 값'
+title: '값'
 date: '2020-05-23'
 categories:
   - javascript

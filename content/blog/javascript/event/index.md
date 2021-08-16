@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] 이벤트'
+title: '이벤트'
 date: '2020-03-11'
 categories:
   - javascript

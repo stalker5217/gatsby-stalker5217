@@ -1,5 +1,5 @@
 ---
-title: '[HTML] BOM, DOM'
+title: 'BOM, DOM'
 date: '2020-02-28'
 categories:
   - html

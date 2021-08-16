@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] JQuery'
+title: 'JQuery'
 date: '2020-03-16'
 categories:
   - javascript

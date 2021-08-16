@@ -1,5 +1,5 @@
 ---
-title: '[ECMAScript 6] Enhanced Object Literals'
+title: 'Enhanced Object Literals'
 date: '2021-08-12'
 categories:
   - javascript

@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] XMLHttpRequest - onprogress'
+title: 'XMLHttpRequest - onprogress'
 date: '2021-07-27'
 categories:
   - javascript

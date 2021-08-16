@@ -1,5 +1,5 @@
 ---
-title: '[ECMAScript 6] Arrow functions'
+title: 'Arrow functions'
 date: '2021-08-11'
 categories:
   - javascript
