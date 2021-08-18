@@ -1,5 +1,5 @@
 ---
-title: '[Javascript] Temlate Literals (Template String)'
+title: 'Temlate Literals (Template String)'
 date: '2021-08-17'
 categories:
   - javascript
