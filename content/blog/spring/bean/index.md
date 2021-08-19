@@ -5,7 +5,7 @@ categories:
   - spring
 tags:
   - spring
-  - cache
+  - bean
 description: '스프링에서 빈을 등록하고 의존 관계를 설정하는 방법에 대해 알아봅시다'
 indexImage: './cover.png'
 ---
