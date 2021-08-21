@@ -41,11 +41,30 @@ public class HelloWorld {
 <context:component-scan base-package="com.my">
 ```
 
-스프링 3.1에서부터는 ```@ComponentScan``` 어노테이션을 지원하며 위의 XML 설정과 같은 역할을 한다. 
+스프링 3.1에서부터는 ```@Configuration```과 함께 ```@ComponentScan``` 어노테이션을 사용하여 위의 XML 설정과 같은 역할을 할 수 있다. 
 
 ``` java
+@Configuration
 @ComponentScan(basePackages="com.my")
-public class MyApp {
+public class MyAppConfig {
+	...
+}
+```
+
+특정 패키지를 명시하지 않으면 어노테이션이 선언된 클래스 위치를 기준으로 스캔 작업이 시작된다. 
+그리고 위와 같이 ```basePackages``` 속성으로 특정 패키지 이름을 명시할 수도 있는데 이는 Type Safe하지 않다. 
+따라서 Marker 역할을 하는 인터페이나 클래스를 생성하고 ```basePackageClasses```를 통해 지정하는 방식이 많이 사용된다. 
+
+``` java
+public interface ScanMarker {
+
+}
+```
+
+``` java
+@Configuration
+@ComponentScan(basePackageClasses=ScanMarker.class)
+public class MyAppConfig {
 	...
 }
 ```
@@ -68,7 +87,7 @@ public @interface SpringBootApplication {
 ```
 
 스프링부트는 이처럼 프로젝트 생성 시 소스 최상단에서부터 Component Scan 작업을 하도록 자동 설정되어 있다. 
-특별한 경우가 아니라면 이 메인 메소드가 포함된 클래스의 최상단에 위치하도록 내버려두도록 하자.
+특별한 경우가 아니라면 이 메인 메소드가 포함된 클래스는 최상단에 위치하도록 내버려두도록 하자.
 
 ### ```@Configuration```, ```@Bean```
 
