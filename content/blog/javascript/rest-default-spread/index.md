@@ -1,6 +1,6 @@
 ---
 title: 'Default, Rest Parameter & Spread Operator'
-date: '2021-04-28'
+date: '2021-08-23'
 categories:
   - javascript
 tags:
