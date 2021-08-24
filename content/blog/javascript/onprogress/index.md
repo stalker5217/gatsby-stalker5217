@@ -40,7 +40,7 @@ $.ajax({
   xhr: function() {
     const xhr = $.ajaxSettings.xhr();
     
-    xhr.onprogress = function(event) {
+    xhr.upload.onprogress = function(event) {
       // 진행 상황 백분율
       const ratio = event.loaded * 100 / event.total;
       console.log(ratio);
