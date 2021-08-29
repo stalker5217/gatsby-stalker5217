@@ -1,6 +1,6 @@
 ---
-title: "[Web] REST API"
-date: '2021-03-06'
+title: "REST API"
+date: '2021-08-29'
 search: true
 categories:
   - web
@@ -14,26 +14,27 @@ description: 'REST API에 대해서 알아봅시다'
 indexImage: './cover.png'
 ---
 
-## REST
+## RESTful API  
 
 REST는 **Re**presentational **S**tate **T**ransfer의 약자이며, 
 HTTP 기반에서 URI로 resource를 나타내고, Method로 operation을 나타내는 것을 말한다. 
 그리고 이러한 형식을 따를 때 해당 API가 Restful하다고 말한다.  
 
-#### 설계 방식
+### 설계 방식
 
 REST API는 아래와 같은 Method로 CRUD를 표현한다.
 
 |Operation|Method|Example|
 |:--|:--|:--|
-|Create|POST|/customers|
-|Read|GET|/customers/{id}|
-|Update|PUT|/customers/{id}|
-|Delete|DELETE|/customers/{id}|  
+|목록 조회|GET|/customers|
+|고객 조회|GET|/customers/{id}|
+|고객 생성|POST|/customers|
+|고객 수정|PATCH, PUT, POST|/customers/{id}|
+|고객 삭제|DELETE|/customers/{id}|  
 
 설계 시 주의해야할 점은 아래와 같다.  
 
-1. 동작이나 행위는 Method를 통해 표현하고 URI에 나타내지 않는다.  
+1. 동작이나 행위는 Method를 통해 표현하고 URI에 나타내지 않는다. 이상적인 경우에는 리소스만 표현하나 Method로 동작을 나타내기가 불가능한 경우에는 동작을 나타내는 Control URI를 사용할 수 있다. 
 	- /get/customers (X)
 	- /customers/show (X)
 
@@ -44,127 +45,16 @@ REST API는 아래와 같은 Method로 CRUD를 표현한다.
 4. 계층 구조는 슬래시를 통해서 나타낸다.
 	- /customers/{id}/device (해당 id를 가지는 고객이 가진 디바이스 정보)
 
-#### 장점   
+### 장점   
 1. Restful하다는 것은 별도의 도큐먼트를 보지 않아도 URI, Method 만으로 어떠한 동작을하는지 예측할 수 있다.
 2. REST API는 Stateless이다. Session이나 Cookie 같은 클라이언트에 대한 context를 유지하지 않기 때문에 구현이 단순해진다.
 
-#### 단점  
+### 단점  
 
 1. 단순 CRUD만을 나타내는 Method로 인해, 특별하거나 상세한 동작을 구현하는데 있어서는 제약이 존재할 수 있다.
 2. REST는 공식적인 표준이 존재하지 않는다. 
 
-#### PUT과 PATCH  
-
-아직은 잘 지원하지 않는 부분이 많지만 업데이트에 해당하는 PUT과 유사한 **PATCH**가 있다.  
-
-- PUT : 리소스 전체에 대한 업데이트
-- PATCH : 리소스 부분에 대한 업데이트
-
-예를 들어 다음과 같은 리소스가 존재한다고 하자.
-
-|seq|id|email|phone_number|  
-|:--|:--|:--|:--|
-|1|stalker|stalker5217@gmail.com|010-1234-5678|
-
-
-업데이트 구문은 다음과 같다.
-
-```
-PUT /customers/1  
-{
-  id: "stalker",
-  email: "stalker5217@gmail.com",
-  phone_number: "010-1111-1111"
-}
-```
-
-|seq|id|email|phone_number|  
-|:--|:--|:--|:--|
-|1|stalker|stalker5217@gmail.com|010-1111-1111|
-
-이처럼 PUT은 항상 전체 리소스에 대한 전송을 전제로 한다. 
-그렇기에 필드에 대한 값이 누락된다면 null처리가 된다. 
-
-```
-PUT /customers/1  
-{
-  id: "stalker",
-  phone_number: "010-1111-1111"
-}
-```
-
-|seq|id|email|phone_number|  
-|:--|:--|:--|:--|
-|1|stalker|null|010-1234-5678|  
-
-PUT은 **리소스의 교체** 성격이 강하다. 
-그리고 **리소스의 부분 수정**을 담당하는 것이 PATCH이다.
-
-```
-PATCH /customers/1  
-{
-  id: "stalker",
-  phone_number: "010-1111-1111"
-}
-```
-
-|seq|id|email|phone_number|  
-|:--|:--|:--|:--|
-|1|stalker|stalker5217@gmail.com|010-1111-1111|  
-
-
-## HTTP 상태 코드  
-
-일반적으로 API 구성 시 많이 나타나는 코드에 대한 정리이다.
-
-<table>
-<thead>
-  <tr>
-    <th>분류</th>
-    <th>설명</th>
-    <th>응답 코드</th>
-    <th>설명</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>2XX</td>
-    <td>정상 응답</td>
-    <td>200 OK</td>
-    <td>요청이 성공적으로 이루어짐</td>
-  </tr>
-  <tr>
-    <td rowspan="4">4XX</td>
-    <td rowspan="4">클라이언트 에러</td>
-    <td>400 Bad Request</td>
-    <td>잘못된 요청으로 서버에서 이해할 수 없는 요청임</td>
-  </tr>
-  <tr>
-    <td>401 Unauthorized</td>
-    <td>인증 값이 유효하지 않음</td>
-  </tr>
-  <tr>
-    <td>403 Forbidden</td>
-    <td>해당 인증 값의 권한으로는 접근할 수 없음 </td>
-  </tr>
-  <tr>
-    <td>404 Not Found</td>
-    <td>페이지를 찾을 수 없음</td>
-  </tr>
-  <tr>
-    <td rowspan="2">5XX</td>
-    <td rowspan="2">서버 에러</td>
-    <td>500 Internal Server Error</td>
-    <td>서버 내부 에러. 요청에 대한 처리 중 에러 발생</td>
-  </tr>
-  <tr>
-    <td>503 Service Unavailable</td>
-    <td>현재 서버를 이용할 수 없음. 트래픽이 과도하거나 점검 중인 상태일 수 있음</td>
-  </tr>
-</tbody>
-</table>
-
-## 다시 REST  
+### 추가 사항
 
 REST API를 설계할 때 만족해야 하는 것 중 unifrom interface(일관된 인터페이스)라는 조건이 있다. 
 
@@ -179,7 +69,7 @@ REST API를 설계할 때 만족해야 하는 것 중 unifrom interface(일관�
 하지만 엄밀하게 보면 우리가 흔히 말하는 REST API의 대다수가 REST API가 아니다.
 현존하는 API 중 세 번째와 네 번째 항목을 지키는 API는 거의 없기 때문이다.  
 
-#### self-descriptive messages  
+### Self-Descriptive Messages  
 
 메시지는 스스로 설명 가능해야 한다라는 속성이다.
 
@@ -270,7 +160,7 @@ Link: <https://example.org/docs/todos>; rel="profile"
 ]
 ```
 
-#### HATEOAS
+### HATEOAS
 
 애플리케이션의 상태는 하이퍼링크를 통해 전이되어야 한다라는 속성이다. 
 HTML 페이지 같은 경우는 a 태그를 통해 하이퍼링크를 제공하고 그 페이지에서 어떤 행위를 할 수 있는지를 나타내고 있다. 
@@ -300,8 +190,6 @@ Link: <https://example.org/docs/todos>; rel="profile"
 
 [스프링에서 HATEOAS 사용하기](/spring/hateoas)
 
-<br/>
-
 참고
-- [HTTP STATUS](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
+
 - [DEVIEW 2017 : 그런 REST API로 괜찮은가](https://youtu.be/RP_f5dMoHFc)
