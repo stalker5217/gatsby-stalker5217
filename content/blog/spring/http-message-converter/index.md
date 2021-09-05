@@ -30,7 +30,7 @@ public class UserController {
 
 ### Default Message Converter  
 
-스프링에서 기본적으로 등록되는 컨버터는 아래와 같다. 
+스프링에서 관련 의존성이 존재할 때, 기본적으로 등록되는 컨버터는 아래와 같다. 
 
 **ByteArrayHttpMessageConverter**  
 
