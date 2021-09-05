@@ -51,24 +51,22 @@ MVC 아키텍쳐는 주로 **Front Controller** 패턴을 따른다.
 </servlet-mapping>
 ```
 
-web.xml에는 ```DispatcherServlet``` 가 수신할 URL 패턴이 지정되어 있다. 
-위의 설정에서는 'hello.do' 와 같은 요청을 처리한다. 
+스프링부트라면 자동 설정에 의해 기본적으로 ```DispatcherServlet```을 등록한다. 
+그게 아니라면 web.xml에 ```DispatcherServlet``` 가 수신할 URL 패턴이 지정한다.  
+위의 설정에서는 '.do'를 postfix 가지는 요청들을 처리한다. 
 
 이 후에는 모든 요청에 대해 공통적으로 수행해야하는 전처리 작업을 진행한다. 
-보안에 관한 처리, 데이터 디코딩 등이 여기에 포함된다. 
+```MultipartResolving```, ```LocaleResolving```, ```ThemeResolving```의 작업이 여기에 포함된다. 
 
 2. 컨트롤러로 HTTP 요청의 위임  
 
 전처리 작업이 끝나면 ```DispatcherServlet```은 모든 웹 요청 정보가 담긴 ```HttpServletRequest```를 컨트롤러에 전달한다. 
 
 하지만 어떤 컨트롤러로 요청을 위임해야할지 결정해야 한다. 
-컨트롤러 선정은 ```HandlerMapping```을 통해 진행되며 
-```DispatcherSevlet```는 어떤 컨트롤러가 어떤 URL을 처리하게 할지 매핑하는 전략을 DI를 통해서 주입받는다. 
+컨트롤러 선정은 ```HandlerMapping```을 통해 진행되며 ```DispatcherSevlet```은 어떤 컨트롤러가 어떤 URL을 처리하게 할지 매핑하는 전략을 DI를 통해서 주입받는다. 
 
-그리고 이제는 실제 컨트롤러의 호출이 이루어진다. 
-```DispatcherServlet```에서는 컨트롤러의 메소드를 실행해야하는데, 
-```Controller```는 특정 인터페이스를 구성한 형태가 아니고 자유로운 메소드 구성을 가진다. 
-이를 수행하기 위해 ```DispatcherServlet```에서 바로 호출하는 형태가 아닌 어댑터 패턴이 사용된다. 
+```DispatcherServlet```에서는 컨트롤러의 메소드를 실행해야하는데, ```Controller```는 특정 인터페이스를 구성한 형태가 아니고 자유로운 메소드 구성을 가진다. 
+이를 수행하기 위해 ```DispatcherServlet```에서 바로 호출하는 형태가 아닌 ```HandlerAdapter```를 사용하는 어댑터 패턴이 사용된다. 
 
 ![adapter_pattern](/adapter_pattern.png) 
 
