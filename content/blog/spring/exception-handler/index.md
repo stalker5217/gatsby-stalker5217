@@ -43,9 +43,9 @@ public class SomeController {
 
 ### ```@ControllerAdvice```  
 
-스프링 3.2에서부터 ```@ControllerAdvice``` 어노테이션을 지원한다.. 
-```@ExceptionHandler```를 컨트롤러 클래스 내에 구현하는 것이 아니라 해당 어노테이션이 선언된 클래스에 구현하며, 모든 컨트롤러의 예외를 처리를 한다. 
-대상을 ```RestController```만 지정한다거나, 특정 패키지 또는 특정 컨트롤러 클래스만 적용되도록 한다거나 다양한 조정할 수 있다. 
+스프링 3.2에서부터 ```@ControllerAdvice``` 어노테이션을 지원한다. 
+```@ExceptionHandler```를 컨트롤러 클래스 내에 구현하는 것이 아니라 해당 어노테이션이 선언된 클래스 내에 구현하여 전역적인 처리를 한다. 
+기본적으로는 모든 컨트롤러의 예외를 처리를 하며, 대상을 ```RestController```만 지정한다거나 특정 패키지 또는 특정 컨트롤러 클래스만 적용되도록 하는 등의 조정할 수 있다. 
 
 ``` java
 @ControllerAdvice
