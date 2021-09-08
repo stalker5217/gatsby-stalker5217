@@ -46,7 +46,16 @@ indexImage: './cover.png'
 @RequestMapping(value="/user/{id}", method=RequestMethod.DELETE)
 ```
 
-### 파라미터  
+스프링 4.3에서부터는 ```@RequestMapping```에서 프로퍼티로 지정하는 것 외에도, 바로 특정 Method를 매핑하는 shortcut을 제공한다. 
+
+``` java
+@GetMapping("/user/{id}")
+@PostMapping("/user/{id}")
+@PutMapping("/user/{id}")
+@DeleteMapping("/user/{id}")
+```
+
+### Parameter  
 
 동일 URL에서 파라미터에 따라 처리를 달리 할 수 있다. 
 
@@ -68,10 +77,29 @@ type이 admin 또는 user로 들어왔을 때 다르게 매핑할 수 있다.
 @RequestMapping(value="/view", header="content-type=text/*")
 ```
 
+### Media Type  
+
+Content-Type 헤더는 클라이언트 요청에서 body 메시지의 포맷을 나타낸다.  
+해당 값을 기준으로 특정 Media Type이 명시된 요청만을 처리할 수 있다. 
+consumes 프로퍼티를 통해 미디어 타입을 지정하며 문자열로 명시해도 되나 type safe하지 않다.
+주로 미디어 타입 상수들을 모아놓은 클래스 ```MediaType```을 사용한다. 
+
+``` java
+@PostMapping(value="user/edit", consumes = "application/json")
+@PostMapping(value="user/edit", consumes = MediaType.APPLICATION_JSON_VALUE)
+```
+
+Accept 헤더는 클라이언트가 응답으로 받고자 하는 body 메시지 포맷을 나타낸다.  
+이 값을 기준으로도 특정 요청을 필터링하여 처리할 수 있다. 
+produces 프로퍼티를 통해 지정한다. 
+
+``` java
+@PostMapping(value="user/edit", produces = MediaType.APPLICATION_JSON_VALUE)
+```
+
 ### 매핑 결합(클래스 레벨 + 메소드 레벨)  
 
-타입 형태인 클래스나 인터페이스에서 지정된 ```RequestMapping```은 공통 조건을 나타내고, 
-그 내부 메소드에서 세부 조건을 지정한다. 
+타입 형태인 클래스나 인터페이스에서 지정된 ```RequestMapping```은 공통 조건을 나타내고, 그 내부 메소드에서 세부 조건을 지정한다. 
 
 ``` java
 @RequestMapping("/user")
