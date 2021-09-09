@@ -26,11 +26,10 @@ indexImage: './cover.png'
 @RequestMapping("/hello") // 단순 형태
 @RequestMapping("/admin/**/user") // 와일드 카드를 통한 패턴 지정
 @RequestMapping("/user/{userid}") // Path Variable 지정
-@RequestMapping({"hello", "hi") // 여러 진입점 설정
+@RequestMapping({"hello", "hi"}) // OR 조건으로 연결하여 하나 이상 만족 시 매핑됨
 ```
 
-여기서 "/hello" 처럼 끝이 "/" 가 아니고 확장자도 아니면 디폴트 패턴이 적용되어 3가지를 처리할 수 있다. 
-
+그리고 "/hello" 처럼 끝이 "/" 가 아니고 확장자도 아니면 디폴트 패턴이 적용되어 3가지를 처리할 수 있다.  
 - /hello
 - /hello/
 - /hello.* 
@@ -44,6 +43,7 @@ indexImage: './cover.png'
 @RequestMapping(value="/user/{id}", method=RequestMethod.POST)
 @RequestMapping(value="/user/{id}", method=RequestMethod.PUT)
 @RequestMapping(value="/user/{id}", method=RequestMethod.DELETE)
+@RequestMapping(value="/user/{id}", method= {RequestMethod.GET, RequestMethod.POST}) // OR 조건으로 연결
 ```
 
 스프링 4.3에서부터는 ```@RequestMapping```에서 프로퍼티로 지정하는 것 외에도, 바로 특정 Method를 매핑하는 shortcut을 제공한다. 
@@ -60,12 +60,13 @@ indexImage: './cover.png'
 동일 URL에서 파라미터에 따라 처리를 달리 할 수 있다. 
 
 ``` java
-@RequestMapping(value="user/edit", params="type=admin")
-@RequestMapping(value="user/edit", params="type=user")
-@RequestMapping(value="user/edit")
+@RequestMapping(value="user/edit", params="type=admin") // type이 admin일 때 매핑
+@RequestMapping(value="user/edit", params="type=user") // type이 user일 때 매핑
+@RequestMapping(value="user/edit", params="type") // type 값이 존재할 때 매핑
+@RequestMapping(value="user/edit", params={"type", "name"}) // AND 조건으로 둘 다 있어야함
 ```
 
-type이 admin 또는 user로 들어왔을 때 다르게 매핑할 수 있다. 
+이처럼 type이 admin 또는 user로 들어왔을 때 다르게 매핑할 수 있다. 
 근데 1번 2번에 해당하는 리퀘스트는 3번의 조건도 만족한다. 
 그러나 3번에 매핑되지는 않고 더 상세한 조건을 가지고 있는 1번 2번으로 자동으로 매핑된다. 
 
@@ -74,7 +75,8 @@ type이 admin 또는 user로 들어왔을 때 다르게 매핑할 수 있다.
 파라미터를 지정하는 것 처럼 특정 헤더 값 또한 지정할 수 있다.
 
 ``` java
-@RequestMapping(value="/view", header="content-type=text/*")
+@RequestMapping(value="/view", headers="accept-ranges")
+@RequestMapping(value="/view", headers={"x-api-key", "x-client"} // AND 조건으로 둘 다 있어야함
 ```
 
 ### Media Type  
@@ -96,6 +98,9 @@ produces 프로퍼티를 통해 지정한다.
 ``` java
 @PostMapping(value="user/edit", produces = MediaType.APPLICATION_JSON_VALUE)
 ```
+
+이처럼 Content-Type과 Accept 헤더는 headers에서 분리되어 produces, consumes로 별도로 처리된다. 
+headers에 지정된 조건들은 AND 조건으로 모두 만족해야하는데 이들은 OR 조건으로 처리하는 전략을 가진다. 
 
 ### 매핑 결합(클래스 레벨 + 메소드 레벨)  
 
