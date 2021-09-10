@@ -106,6 +106,8 @@ JSP를 예시로 들면, JSP의 뷰 템플릿이 모델을 참조하여 최종�
 뷰가 만들어준 HttpServletResponse에 담긴 최종 결과를 서블릿 컨테이너에게 돌려준다. 
 서블릿 컨테이너는 이 정보를 HTTP Response로 만들어 클라이언테에 전송하게 된다.
 
+![spring-mvc-request-lifecycle](spring-mvc-request-lifecycle.png)
+
 <br/>
 
 참고
