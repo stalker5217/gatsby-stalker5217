@@ -1,5 +1,5 @@
 ---
-title: '@MVC Controller의 리턴 값'
+title: '@MVC Controller Return value'
 date: '2021-02-07'
 categories:
   - spring
@@ -9,7 +9,7 @@ description: '@MVC Controller가 리턴하는 값을 알아봅시다'
 indexImage: './cover.png'
 ---
 
-# @Controller 리턴 타입  
+## @Controller의 Return type  
 
 결론적으로 @Controller는 모델과 뷰를 반환한다. 
 어떤 것을 리턴하든 결국 기타 정보와 결합하여 ```ModelAndView```를 반환하게 된다. 
@@ -61,6 +61,17 @@ public ModelAndView hello(@RequestParam String name, Model model){
 public String hello(@RequestParam String name, Model model){
 	model.addAttribute("name", name);
 	return "hello";
+}
+```
+
+그리고 뷰가 아닌 리다이렉션을 지정할 수도 있다. 
+
+``` java
+@RequestMapping("/hello")
+public String hello(@RequestParam String name, Model model){
+	model.addAttribute("name", name);
+	
+	return "redirect:/hello";
 }
 ```
 
@@ -130,10 +141,9 @@ public class UserController{
 ```
 
 
-### ```@ResponseBody```
+### ```@ResponseBody```, ```HttpEntity```, ```ResponseEntity```
 
-메소드가 리턴하는 오브젝트가 모델로 사용되는 대신, 
-메시지 컨버터를 통해서 바로 HTTP response의 body에 들어가게 된다. 
+```@ResponseBody```를 사용하면 메소드가 리턴하는 오브젝트가 모델로 사용되는 대신, 메시지 컨버터를 통해서 바로 HTTP response의 body에 들어가게 된다. 
 XML이나 JSON 기반의 통신에 사용될 수 있다.  
 
 ``` java
@@ -145,18 +155,18 @@ public String hello(){
 }
 ```
 
+```HttpEntity```와 ```ResponseEntity```는 확장된 형태이다. 
+```HttpEntity```는 헤더 정보를 포함할 수 있으며, ```ResponseEntity```는 이를 상속하여 응답의 상태코드까지 담을 수 있다. 
 
-
-
-
-
-
-
-
-
-
+``` java
+@RequestMapping("/hello")
+public ResponsEntity<String> hello(){
+	return ResponseEntity.ok().body("Hello Spring!");
+}
+```
 
 <br/>
 
 참고
 - 이일민, 토비의 스프링 3.1, 에이콘
+- [Web on Servlet Stack](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types)
