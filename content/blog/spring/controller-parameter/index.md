@@ -1,5 +1,5 @@
 ---
-title: '@MVC Controller 파라미터'
+title: '@MVC Controller Parameter'
 date: '2021-02-07'
 categories:
   - spring
@@ -9,20 +9,42 @@ description: '@MVC Controller에서 사용할 수 있는 파라미터에 대해 
 indexImage: './cover.png'
 ---
 
-# @Controller 파라미터  
-
 ### ```HttpServletRequest```, ```HttpServletResponse```  
 
 대다수의 경우는 보다 상세한 정보를 포함하고 있는 파라미터를 사용할 수 있어 필요가 없다. 
 하지만 원한다면 서블릿의 이 오브젝트들을 파라미터로 받아 사용할 수 있다. 
 
+``` java
+@PostMapping("/sample")
+public ResponseEntity<Void> parameterSample(HttpServletRequest req, HttpServletResponse res) {
+	...
+}
+```
 
-### ```HttpSession```  
+
+### ```HttpSession```, ```@SessionAttribute```  
 
 위에서 말한 것 처럼 이는 ```HttpServletRequest``` 를 통해 가져올 수 있다. 
 하지만 세션만 필요하다면 이렇게 바로 선언하여 사용할 수 있다. 
 주의할 점은 ```HttpSession``` 은 멀티스레드 환경에서 안전하지 않을 수 있다. 
-안전하게 사용하려면 Handler Adapter의 synchronizeOnSession 프로퍼티를 true로 설정해야 한다. 
+안전하게 사용하려면 HandlerAdapter의 synchronizeOnSession 프로퍼티를 true로 설정해야 한다. 
+
+``` java
+@PostMapping("/sample")
+public ResponseEntity<Void> parameterSample(HttpSession session) {
+	...
+}
+```
+
+세션 전체가 필요한 것이 아니라 세션의 특정 값만 READ하는 것이 필요하다면 ```@SessionAttribute``` 를 사용할 수 있다. 
+세션에서 직접 꺼냈을 때는 각 데이터들이 Object 타입인 것에 비해 자동으로 Type Conversion을 지원해준다. 
+
+``` java
+@PostMapping("/sample")
+public ResponseEntity<Void> parameterSample(@SessionAttribute("id") String id) {
+	...
+}
+```
 
 
 ### ```WebRequest```, ```NativeWebRequest```  
@@ -30,10 +52,27 @@ indexImage: './cover.png'
 ```HttpServeletRequest```의 요청 정보의 다수를 가지고 있으나, 서블릿 API에 종속적이지 않는 범용적인 요청이다. 
 ```NativeWebRequest``` 는 ```WebReuqest``` 내부에 존재하는 환경 종속적인 오브젝트(```HttpServeltRequest``` 같은)를 가져올 수 있다. 
 
+``` java
+@PostMapping("/sample")
+public ResponseEntity<Void> parameterSample(WebRequest webRequest, NativeWebRequest nativeWebRequest) {
+	...
+}
+```
 
-### ```Locale```  
+### ```Locale```, ```TimeZone```, ```ZoneId```  
 
-```DispatcherServlet```의 Locale Resolver가 결정한 Locale 오브젝트를 받아 올 수 있다. 
+```DispatcherServlet```의 Locale Resolver가 결정한 Locale 오브젝트와 이와 관련된 TimeZone, ZoneId 오브젝트를 받아 올 수 있다. 
+
+``` java
+@PostMapping("/sample")
+public ResponseEntity<Void> parameterSample(
+							Locale locale, 
+							TimeZone timeZone, 
+							ZoneId zoneId) 
+{
+	...
+}
+```
 
 
 ### ```InputStream```, ```Reader```  
@@ -43,56 +82,80 @@ indexImage: './cover.png'
 
 ### ```OutputStream```, ```Writer```  
 
-```HttpServletResponse``` 의 스트림, Writer 타입의 오브젝트를 처리할 수 있다.
+```HttpServletResponse``` 의 스트림, Writer 타입의 오브젝트를 처리할 수 있다. 
 
+### ```HttpMethod```  
+
+현재 요청의 Http Method를 파악할 수 있다. 
+
+``` java
+@PostMapping("/sample")
+public ResponseEntity<Void> parameterSample(HttpMethod httpMethod) {
+	...
+}
+```
 
 ### ```@PathVariable```  
 
-REST로 설계된 API를 처리할 수 있다. 
-예를들어, id를 기반으로 고객 정보를 조회할 때는 다음과 같은 API를 설계할 수 있다.
+id를 기반으로 고객 정보를 조회할 때는 다음과 같은 API를 설계할 수 있다.
 
 ```
 /customers/{id}
 ```
 
 여기서 파라미터에 해당하는 부분에 {}를 넣는 URI를 템플릿을 사용하면 파라미터를 가져올 수 있다. 
-그리고 물론 여러개를 동시에 사용하는 것도 가능하다.  
+물론 여러개를 동시에 사용하는 것도 가능하다.  
 
 ``` java
 @RequestMapping("/customers/{id}")
-public String infor(@PathVariable("id") int id){
+public String info(@PathVariable("id") int id){
 	...
 }
 ```
 
 여기서는 id는 정수 형태로 받고 있는데 일치하는 포맷이 들어오지 않으면 별도의 처리가 없는 이상 클라이언트는 400(Bad Request)를 받게 된다. 
+필수 값으로 지정하지 않으려면 ```required``` 옵션을 false로 주거나 ```Optional```로 처리할 수 있다. 
+
+``` java
+@RequestMapping("/customers/{id}")
+public String info(@PathVariable(value = "id", required = false) int id){
+	...
+}
+```
+
+``` java
+@RequestMapping("/customers/{id}")
+public String info(@PathVariable Optional<Integer> id){
+	...
+}
+```
 
 
 ### ```@RequestParam``` 
 
-HTTP 요청에 포함된 각 파라미터를 메소드에서 사용할 수 있도록 한다. 
+쿼리 매개변수 및 폼 데이터(멀티파트 포함)을 메소드에서 사용할 수 있도록 한다. 
 
 ``` java
+@PostMapping("/sample")
 public String view(@RequestParam("id") int id){
 	...
 }
 ```
 
-이렇게 정의했을 때 각 요소는 요청에 필수 요소이다. 
-위 예제에서 만약 id 값이 누락된다면 에러가 리턴된다. 
-
-하지만 파라미터가 꼭 필수가 아닐 수도 있다. 
-이 때는 설정 값으로 필수 요소가 아니라고 지정할 수 있고 그 때의 디폴트 값도 설정이 가능하다. 
+```@RequestParam```이 지정되었을 때 해당 값은 요청에 반드시 포함되어야 한다. 
+설정 값으로 필수 요소가 아닐 때는 ```required``` 옵션을 false로 주고, 그 때의 디폴트 값도 설정이 가능하다. 
 
 ``` java
+@PostMapping("/sample")
 public String view(@RequestParam(value="id", required=false, defaultValue="-1")){
 	...
 }
 ```
 
-또한, 각각의 파라미터를 받는 것이 아니라 전체를 ```map``` 형태로 받을 수도 있다. 
+또한, 각각의 파라미터를 받는 것이 아니라 ```Map``` 또는 ```MultiValueMap```을 통해 전체를 받을 수도 있다. 
 
 ``` java
+@PostMapping("/sample")
 public String view(@RequestParam Map<String, String> params){
 	...
 }
@@ -100,9 +163,10 @@ public String view(@RequestParam Map<String, String> params){
 
 ### ```@CookieValue```  
 
-쿠키 값을 메소드 파라미터로 사용한다.
+쿠키 값을 받아올 수 있다.
 
 ``` java
+@PostMapping("/sample")
 public String check(@CookieValue("auth") String auth){
 	...
 }
@@ -110,9 +174,10 @@ public String check(@CookieValue("auth") String auth){
 
 ### ```@RequestHeader```  
 
-헤더 정보를 메소드 파라미터로 사용한다.  
+헤더 정보를 받아 올 수 있다.  
 
 ``` java
+@PostMapping("/sample")
 public void header(@RequestHeader("Host") String host, 
 				@RequestHeader("Keep-Alive") long keepAlive){
 	...
@@ -125,6 +190,7 @@ public void header(@RequestHeader("Host") String host,
 그리고 이 값들은 모델 정보를 담는데 사용할 수 있다. 
 
 ``` java
+@PostMapping("/sample")
 public void hello(ModelMap model){
 	User user = new User();
 	model.addATtribute("user", user);
@@ -133,13 +199,13 @@ public void hello(ModelMap model){
 
 ### ```@ModelAttribute```  
 
-사용자 정보를 등록하는 API를 예로 들어보자. 
+사용자 정보를 등록하는 API를 예시로 생각해본다.  
 사용자 정보는 id, 이름, 이메일 주소 등으로 구성된다. 
 API를 구성하기 위한 한 가지 방법으로는 ```@RequestParam```을 통해 파라미터와 일대일로 매핑하여 처리 가능하다. 
 
 ``` java
-@RequestMapping("/user")
-public String user(@RequestParam("id") int id, 
+@RequestMapping("/user/{id}")
+public String user(@PathVariable("id") int id, 
 				@RequestParm("name") String name, 
 				@RequestParam("email") String email){
 	User user = new User(id, name, email);
@@ -152,10 +218,11 @@ public String user(@RequestParam("id") int id,
 이 때 모든 값들을 파라미터로 작성해야하며 또 사용자 정보가 더 늘어난다면 계속해서 파라미터 수정 작업을 해줘야 할 것이다.
 
 이렇게 받은 파라미터는 결국 하나의 객체로 구성된다. 
-여기서, ```@ModelAttribute```는 이러한 데이터들을 자동으로 오브젝트 바인딩해준다. 
+```@ModelAttribute```는 이러한 데이터들을 자동으로 오브젝트 바인딩해주며, 
+특정 형태의 포맷만 처리하는 것이 아니라 Path variable, Query Parameter, Form data, Session 등의 정보를 모아 바인딩 해준다. 
 
 ``` java
-@RequestMapping("/user")
+@RequestMapping("/user/{id}")
 public String user(@ModelAttribute User user){
 	...
 }
@@ -168,6 +235,17 @@ public String user(@ModelAttribute User user){
 그리고, ```@ModelAttribute``` 는 위와 같이 파라미터로 사용할 수도 있지만 
 컨트롤러의 메소드 레벨에서도 사용할 수 있다. 
 메소드 레벨에 애노테이션을 적용하면 해당 컨트롤러 내의 모든 ```@RequestMapping``` 메소드의 ```Model```에 삽입되어 반환된다. 
+
+``` java
+@Controller
+public class MyController {
+    @ModelAttribute
+	public void myModel(Model model) {
+		mode.addAttribute("my", "my");
+		...
+	}
+}
+```
 
 
 ### ```Errors```, ```BindingResult```
@@ -234,14 +312,24 @@ public String user(SessionStatus sessionStatus){
 }
 ```
 
-### ```@RequestBody```  
+### ```@RequestBody```, ```HttpEntity```  
 
-HTTP Request의 Body 부분이 그대로 전달된다. 
+HTTP 요청의 Body 부분을 ```HttpMessageConverter```를 통해 변환하여 받아 올 수 있다. 
 만약 JSON이나 XML 기반으로 데이터가 전달된다면 이를 사용하여 처리할 수 있다. 
-일반적으로, ```@ResponseBody```와 주로 함께 사용된다. 
+일반적으로 ```@ResponseBody```와 주로 함께 사용된다. 
 
 ``` java
-public void message(@RequestBody String body){
+@ResponseBody
+public String message(@RequestBody String body){
+	...
+}
+```
+
+```HttpEntity```는 ```@RequestBody```처럼 Body 정보를 담으면서 헤더 값과 같은 HTTP 요청 정보에 접근할 수 있다. 
+
+``` java
+@ResponseBody
+public String message(HttpEntity<String> req){
 	...
 }
 ```
@@ -263,7 +351,6 @@ public String hello(@Value("#{systemProperties['os.name']}") String osName){
 
 JSR-303 : Bean Validation을 통해 모델 오브젝트를 검증할 수 있다. 
 일반적으로 ```@ModelAttribute```와 주로 사용한다. 
-이에 관한 내용은 별도로 정리가 필요하다.
 
 ``` java
 @RequestMapping("/user")
@@ -278,3 +365,4 @@ public String user(@ModelAttribute @Valid User user, Errors errors){
 
 참고
 - 이일민, 토비의 스프링 3.1, 에이콘
+- [Web on Servlet Stack](https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-arguments)
