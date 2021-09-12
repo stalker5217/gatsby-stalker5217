@@ -95,7 +95,7 @@ public String submit(@ModelAttribute User user, @RequestParam int id){
 이는 코드 중복을 심하게 발생시키며, 계층간의 결합이 강하게 있기 때문에 읽기 힘들고 유지보수가 어려운 코드가 되어버린다. 
 이런 식의 코드는 계층 간의 분리가 무의미하며 차라리 뷰-컨트롤러 1계층으로 가는 것이 낫다. 
 
-## ```@SessionAttribute```  
+## ```@SessionAttributes```  
 
 위의 문제점은 세션을 사용하면 해결할 수 있다. 
 스프링에서는 기본적으로 HTTP 세션을 관리할 수 있도록 기능을 제공한다. 
@@ -103,7 +103,7 @@ public String submit(@ModelAttribute User user, @RequestParam int id){
 
 ``` java
 @Controller
-@SessionAttribute("user")
+@SessionAttributes("user")
 public class UserController {
   @RequestMapping(value="/user/edit", method=RequestMethod.GET)
   public String form(@RequestParam int id, Model model){
@@ -119,7 +119,7 @@ public class UserController {
 }
 ```
 
-```@SessionAttribute```의 첫 번째 기능은 컨트롤러에서 생성하는 모델 정보에서 ```@SessionAttribute```에 지정된 이름과 동일한 것이 있다면 이를 세션에 저장한다. 
+```@SessionAttributes```의 첫 번째 기능은 컨트롤러에서 생성하는 모델 정보에서 ```@SessionAttributes```에 지정된 이름과 동일한 것이 있다면 이를 세션에 저장한다. 
 여기서는 처음 폼 화면 요청을 할 때 반환되는 ```user```가 세션에 저장된다.  
 
 두 번째로는 ```@ModelAttribute```가 지정된 파라미터가 있을 때 세션에서 값을 가져와 바인딩해주는 것이다. 
