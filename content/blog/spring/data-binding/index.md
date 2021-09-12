@@ -379,6 +379,55 @@ public class User {
 |```@Pattern```|정규식을 통해 검증한다|CharSequence|
 |```@Email```|이메일 형태의 포맷을 가져야 한다|CharSequence|
 
+```@Valid``` 어노테이션을 통한 검증말고 ```@Validated``` 어노테이션을 사용하면 검증에 대한 그룹을 설정할 수 있다. 
+예를 들면 같은 모델 클래스를 사용하나 리소스의 생성과 수정할 때 검증해야 될 값이 다를 수 있을 것이며, 
+관리자가 호출하는 경우와 일반 사용자가 호출하는 경우에 검증이 다를 것이다. 
+
+그룹은 내용이 없는 Marker interface를 통해 구분한다. 
+
+``` java
+@NoArgsConstructor
+@Getter
+@Setter
+public class User {
+    interface UserValidation{}
+    interface AdminValidation{}
+
+    @NotEmpty(groups={UserValidation.class, AdminValidation.class})
+    private String id;
+
+    @NotEmpty(groups={UserValidation.class})
+    private String name;
+
+    @Min(value = 0, groups={UserValidation.class})
+    private int age;
+}
+```
+
+``` java
+package com.example.springtest.test;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class MyController {
+    // UserValidation이 설정된 제약 조건만 검증함
+    @PostMapping("/user")
+    public ResponseEntity<Void> createUser(@ModelAttribute @Validated(User.UserValidation.class) User user) {
+        return ResponseEntity.ok().build();
+    }
+
+    // AdminValidation이 설정된 제약 조건만 검증함
+    @PostMapping("/admin/user")
+    public ResponseEntity<Void> createAdminUser(@ModelAttribute @Validated(User.AdminValidation.class) User user){
+        return ResponseEntity.ok().build();
+    }
+}
+```
 
 <br/>
 
