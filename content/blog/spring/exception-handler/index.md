@@ -11,11 +11,15 @@ indexImage: './cover.png'
 
 ## Exception Handling  
 
+Controller나 그 이 후 계층에서 발생한 예외는 ```DispatcherServlet```으로 전달되어 적절한 ```HandlerExceptionResolver```를 통해 처리되거나, 
+적합한 것이 존재하지 않으면 서블릿 컨테이너에 의해 처리된다. 
+
 ### ```@ExceptionHandler```  
 
 컨트롤러 클래스 내부에 구현되며, 해당 컨트롤러에서 발생한 예외를 처리하는데 사용된다. 
 애플리케이션 전체에 대해 공통 예외 처리 로직을 적용하려면, ```BaseController```를 두고 이를 상속하는 식으로 구현할 수 있다. 
 하지만 이런 상속 구조를 사용할 수 없는 상황이라면 각 컨트롤러마다 같은 기능을 구현해줘야 한다. 
+이렇게 작성한 ```@ExceptionHandler``` 어노테이션 메소드는 ```AnnotationMethodHandlerExceptionResolver```에 의해 실행되어 예외를 처리한다. 
 
 ``` java
 @Controller
@@ -79,7 +83,7 @@ public class ExampleAdvice2 {}
 public class ExampleAdvice3 {}
 ```
 
-### ```BasicErrorHandler```  
+### ```BasicErrorController```  
 
 위 케이스들은 Handler Mapping이 이루어진 후 비즈니스 로직을 처리하는 과정에서 발생한 오류를 처리했다. 
 존재하지 않는 리소스를 호출하는 404를 비롯해서, 처리되지 않은 모든 에러를 핸들링하기 위해 스프링부트에서는 기본적으로 ```BasicErrorHandler```를 제공한다. 
