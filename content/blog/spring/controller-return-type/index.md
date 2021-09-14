@@ -9,10 +9,12 @@ description: '@MVC Controller가 리턴하는 값을 알아봅시다'
 indexImage: './cover.png'
 ---
 
-## @Controller의 Return type  
+## 컨트롤러의 반환 값  
 
-결론적으로 @Controller는 모델과 뷰를 반환한다. 
-어떤 것을 리턴하든 결국 기타 정보와 결합하여 ```ModelAndView```를 반환하게 된다. 
+MVC에서 **View**는 Model이 가진 정보를 어떻게 표현해야 하는지에 대한 로직을 갖는 컴포넌트이다. 
+일반적으로는 브라우저에서 렌더링 가능한 HTML을 결과로 가지나 XML, JSON, Excel, PDF 등을 표현할 수도 있다.  
+MVC의 Controller에서는 결과적으로 ```Model```과 ```View```를 반한한다.
+
 
 ### 모델에 자동으로 추가 
 
@@ -32,7 +34,7 @@ indexImage: './cover.png'
 
 ### ```ModelAndView```  
 
-실제 컨트롤러가 리턴해야되는 값을 그대로 사용하는 것이다. 
+실제 반환해야 하는 값을 그대로 사용하는 것이다. 
 가장 대표적인 개념이지만 직관적이지 않아서 많이 사용되지는 않는다. 
 
 ``` java
@@ -54,7 +56,7 @@ public ModelAndView hello(@RequestParam String name, Model model){
 
 ### String  
 
-리턴 타입이 문자열이라면 이 문자열은 뷰의 이름으로 사용된다. 
+리턴 타입이 문자열이라면 이 문자열은 뷰의 이름으로 사용되며 ```DispatcherServlet```에서 ```ViewResolver```에 의해 실제 View object로 변환된다. 
 
 ``` java
 @RequestMapping("/hello")
