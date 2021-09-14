@@ -57,7 +57,7 @@ implementation group: 'org.springframework.boot', name: 'spring-boot-starter-hat
 > 한가지 주의해야할 점은 이는 특정 버전을 기준으로 객체 이름이 다시 명명되었으며, 
 > 구버전에서는 다음과 같은 객체를 사용해야 한다.
 
-> |구버전|신버전|
+> |0.x release|1.0 <= release|
 > |:---|:---|
 > |ResourceSupport|RepresentationModel|
 > |Resource|EntityModel|
