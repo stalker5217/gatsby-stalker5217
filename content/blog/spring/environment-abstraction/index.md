@@ -108,7 +108,7 @@ public class AppRunner implements ApplicationRunner {
 위 방법들과는 다르게 Type Safe하게 프로퍼티를 사용할 수 있다는 장점이 있다. 
 
 ``` java
-@Configuration
+@Component
 @ConfigurationProperties(prefix="os")
 public class AppProperties {
     private String name; // os.name 값을 바인딩
@@ -123,16 +123,45 @@ public class AppProperties {
 }
 ```
 
+스프링부트 2.2에서는 좀 더 확장된 기능을 제공한다. 
+굳이 이를 ```@Component```를 통해 빈으로 등록할 필요 없이 ```@ConfigurationPropertiesScan``` 어노테이션을 활용하면 이를 스캔하여 자동으로 빈으로 만들어준다. 
+또한, 기존의 것은 setter를 통한 바인딩으로 immutable하지 않다는 점이 있는데 이는 ```@ConstructorBinding```를 통한 생성자 바인딩을 통해 해결할 수 있다. 
+
+``` java
+@SpringBootApplication
+@ConfigurationPropertiesScan
+public class MyApplication {
+    ...
+}
+```
+
+``` java
+@ConfigurationProperties(prefix="os")
+@ConstructorBinding
+public class AppProperties {
+    private String name; // os.name 값을 바인딩
+
+    public AppProperties(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+```
+-------------------
+
 어플리케이션에서 사용할 커스텀 프로퍼티는 주로 properties 파일을 통해 설정한다. 
 한 곳에서 관리할 수 있으며 변경에 대한 추적도 용이하기 때문이다. 
-아래와 같이 파일을 생성하여 key-value의 값을 지정할 수 있다. 
+그러나 아래와 같이 파일을 생성하여 key-value의 값을 지정할 수 있다. 
 
 ```
 # my.properties
 greeting=hello world!
 ```
 
-그리고 이를 ```@PropertySource```를 지정하면 프로퍼티 소스로 등록된다. 
+그리고 이에 ```@PropertySource```를 지정하면 프로퍼티 소스로 등록된다. 
 
 ``` java
 @Configuration
