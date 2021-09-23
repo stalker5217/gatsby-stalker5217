@@ -82,7 +82,10 @@ mList.stream().filter(cur -> cur > 2).count()
 	myList.stream();
 	```
 
-2. **중개 연산** 
+2. **중개 연산**  
+
+중개 연산은 Lazy하며 종단 연산을 만나기 전까지는 실행되지 않는다. 
+또한 ```Stream``` 자체를 리턴하므로 체이닝으로 구성할 수 있다. 
 
 	``` java
 	int[] arr = {3, 2, 1, 4, 5};
@@ -96,7 +99,7 @@ mList.stream().filter(cur -> cur > 2).count()
 	<br/>
 
 	``` java
-	// map : 각 요소에 특정 연산을 해준다.
+	// map : 각 요소에 연산을 통해 새로운 요소를 반환하며 입력과 다른 타입도 반환 가능하다.
 	Arrays.stream(arr).map(c -> c + 1) // [4, 3, 2, 5, 6]
 	```
 
@@ -148,7 +151,7 @@ mList.stream().filter(cur -> cur > 2).count()
 	mList.stream().flatMap(_1List -> _1List.stream()).forEach(c-> System.out.println(c));
 	```
 
-2. **종료 연산** 
+3. **종료 연산** 
 
 	``` java
 	List<Integer> mList = new ArrayList<>();
