@@ -45,6 +45,8 @@ indexImage: './cover.png'
 
 ![Garbage_Collection](./Garbage_Collection.png)  
 
+> Java 8 버전부터는 Permenant가 Heap에 포함되지 않으며, Metaspace라는 이름으로 Native 메모리 영역으로 변경되었다.  
+
 **Young Generation**  
 
 1. 먼저 새롭게 생성되는 객체는 **Eden** 영역에 할당된다.
