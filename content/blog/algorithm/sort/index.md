@@ -134,33 +134,25 @@ void mergeSort(vector<int> & arr, int left, int right){
 void mergeArea(vector<int> & arr, int left, int mid, int right){
 	int frontIdx = left;   // 앞 배열 인덱스
 	int rearIdx = mid + 1; // 뒷 배열 인덱스
-	int resultIdx = left;  // 결과 배열 인덱스
+	int resultIdx = 0;  // 결과 배열 인덱스
 	
-	vector<int> resultArr(right + 1, 0);
+	vector<int> temp(right - left + 1, 0);
 	// merge할 배열 중 하나가 끝날 때 까지 채우기
 	while(frontIdx <= mid && rearIdx <= right)
 	{
 		if(arr[frontIdx] <= arr[rearIdx])
-			resultArr[resultIdx++] = arr[frontIdx++];
+			temp[resultIdx++] = arr[frontIdx++];
 		else
-			resultArr[resultIdx++] = arr[rearIdx++];
+			temp[resultIdx++] = arr[rearIdx++];
 	}
+
+	// 먼저 다 채운 배열이 뒷 배열이면 앞 배열 나머지 요소 채우기
+	while(frontIdx <= mid) temp[resultIdx++] = arr[frontIdx++];
 	
 	// 먼저 다 채운 배열이 앞 배열이면 뒷 배열 나머지 요소 채우기
-	if(frontIdx > mid) 
-	{
-		for(int i = rearIdx ; i <= right ; i++)
-			resultArr[resultIdx++] = arr[i];
-	}
-	// 먼저 다 채운 배열이 뒷 배열이면 앞 배열 나머지 요소 채우기
-	else 
-	{
-		for(int i = frontIdx ; i <= right ; i++)
-			resultArr[resultIdx++] = arr[i];
-	}
+	while(rearIdx <= right) temp[resultIdx++] = arr[rearIdx++];
 	
-	for(int i = left; i <= right; i++)
-		arr[i] = resultArr[i];
+	for(int i = left; i <= right; i++) arr[i] = temp[i - left];
 }
 ```
 
