@@ -13,7 +13,8 @@ indexImage: './cover.png'
 ---
 ## Enhanced Object Literal  
 
-기본적인 객체 리터럴의 생성은 아래와 같다.
+자바스크립트에서 객체는 리터럴(Literal) 형식 또는 선언적(Declarative) 형식으로 정의하는 방식과, 
+생성자 형식 두 가지 방법으로 정의할 수 있다. 
 
 ``` js
 const foo = 30;
@@ -25,11 +26,13 @@ const obj = {
 	}
 };
 
-console.log(obj.foo); // 30
+console.log(obj.foo); // 30. Property Access
+console.log(obj["foo"]); // 30. Key Access
 obj.bar(); // Hello world
 ```
 
-ES6에서는 객체 리터럴을 생성할 때 불필요한 반복 작업을 줄이고 조금 더 유연한 생성을 가능하게 한다.
+ES6에서부터는 문법이 좀 더 확장되었다. 
+객체 리터럴을 생성할 때 불필요한 반복 작업을 줄이고 조금 더 유연한 생성을 가능하게 한다.
 
 ``` js
 const foo = 30;
@@ -52,6 +55,7 @@ console.log(obj.baz); // baz
 
 <br/>
 
-참고
+참고  
+- Kyle Simpson, You don't know JS
 - [MDN Web Docs](https://developer.mozilla.org/ko/)
 - [Overview of ECMAScript 6 features](https://github.com/lukehoban/es6features)
