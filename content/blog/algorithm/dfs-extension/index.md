@@ -69,7 +69,7 @@ void dfs(int here){
 Back Edge가 존재한다면 사이클이 존재한다고 볼 수 있다.
 
 
-## 절단점  
+## 단절점    
 
 [11266 : 단절점](https://www.acmicpc.net/problem/11266)
 
@@ -170,6 +170,78 @@ int findCutVertex(int here, bool isRoot){
 	}
 
 	if(isRoot) isCutVertex[here] = (children >= 2);
+	return ret;
+}
+```
+
+## 단절선  
+
+어떤 엣지를 지웠을 때, 그래프가 두 개 이상의 컴포넌트로 나눠지는 점을 말한다. 
+단절점 문제와 거의 유사하며 같은 원리로 문제를 풀어 낼 수 있다. 
+
+[11400 : 단절선](https://www.acmicpc.net/problem/11400)
+
+``` cpp
+#define DEBUG 0
+#define LOG(string) cout << string
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int v, e;
+vector<vector<int> > adj;
+vector<int> discovered;
+vector<pair<int, int> > cutEdges;
+int counter = 0;
+
+int findCutEdge(int, int);
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+	cin >> v >> e;
+	adj.assign(v+1, vector<int>(0));
+	discovered.assign(v+1, -1);
+	for(int i = 0 ; i < e ; i++){
+		int a, b;
+		cin >> a >> b;
+		adj[a].push_back(b);
+		adj[b].push_back(a);
+	}
+
+	for(int i = 1 ; i <= v ; i++){
+		if(discovered[i] == -1){
+			findCutEdge(i, -1);
+		}
+	}
+
+	sort(cutEdges.begin(), cutEdges.end());
+
+	cout << cutEdges.size() << "\n";
+	for(pair<int, int> edge : cutEdges) cout << edge.first << " " << edge.second << "\n";
+
+    return 0;
+}
+
+int findCutEdge(int here, int parent){
+	discovered[here] = counter++;
+	int ret = discovered[here];
+
+	for(int next : adj[here]){
+		if(next == parent) continue;
+		else if(discovered[next] >= 0) ret = min(ret, discovered[next]);
+		else{
+			int prev = findCutEdge(next, here);
+			if(prev > discovered[here]) cutEdges.push_back({min(here, next), max(here, next)});
+
+			ret = min(ret, prev);
+		}
+	}
+
 	return ret;
 }
 ```
