@@ -19,6 +19,8 @@ indexImage: './cover.png'
 <br/>
 
 자바 프로그램은 컴파일러에 의해 ```.class``` 파일로 변환되어 JVM 위로 올라간다. 
+그리고 JVM은 이 변환된 바이트 코드를 현재 OS에서 실행가능하도록 변환 및 실행하는 역할을 한다. 
+이 스펙을 준수하여 구현된 것은 Oracle JDK, Oracle Open JDK, Amazon Corretto 등이 있다. 
 
 **JVM**  
 
@@ -28,7 +30,7 @@ indexImage: './cover.png'
 - Runtime Data Area : 현재 실행 중인 데이터가 메모리에 올라가 있다.  
 	- Method(static) Area : 클래스의 인스턴스 변수, 메소드 등의 클래스 정보를 담고 있는 영역.
 	- Heap Area : 동적으로 할당되는 변수를 담는 영역. new로 새로운 객체 생성 시 이 영역으로 들어간다.
-	- Stack Area : 메소드 호출 시 발생하는 지역 변수, 매개 변수 등의 데이터가 포함된다.
+	- Stack Area : 각 스레드마다 런타임 스택이 생성되며 메소드가 호출되면 발생하는 지역 변수, 매개 변수 등 관련 내용을 스택 프레임으로 쌓는다.
 	- PC Register : 현재 수행 중인 JVM의 명령 주소(Program Counter)를 갖는다.
 	- Native Method Stack Area : 자바 이외의 네이티브 코드를 담는 영역이다.
 
