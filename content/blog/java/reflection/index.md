@@ -57,8 +57,7 @@ public class ConsoleCharset {
             Field f = c.getClass().getDeclaredField("cs");
             f.setAccessible(true);
             out.format("Console charset         :  %s%n", f.get(c));
-            out.format("Charset.defaultCharset():  %s%n",
-                    Charset.defaultCharset());
+            out.format("Charset.defaultCharset():  %s%n", Charset.defaultCharset());
 
             // production code should handle these exceptions more gracefully
         } catch (InstantiationException x) {
