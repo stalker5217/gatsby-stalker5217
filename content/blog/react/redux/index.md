@@ -393,7 +393,7 @@ function MyMiddleware(store){
 그리고 미들웨어는 ```store```를 생성할 때 적용하게 된다. 
 
 ``` js
-const store = createStore(rootReducer, applyMiddleware(loggerMiddleware));
+const store = createStore(rootReducer, applyMiddleware(loggerMiddleware))
 ```
 
 실제로 미들웨어를 직접 생성할 일은 거의 없다. 
@@ -405,27 +405,197 @@ const store = createStore(rootReducer, applyMiddleware(loggerMiddleware));
 
 비동기 작업을 처리할 수 있는 기본적인 미들웨어이며, 
 객체가 아닌 함수 형태의 액션을 디스패치할 수 있는 것이 큰 특징이다. 
-
-먼저 **thunk**는 쉽게 말하면, 특정 연산을 필요할 때 계산할 수 있도록 함수 형태로 감싸는 것을 의미한다. 
+**thunk**는 쉽게 말하면, 특정 연산을 필요할 때 계산할 수 있도록 함수 형태로 감싸는 것을 의미한다. 
 
 ``` js
-const addOne = x => x + 1;
-addOne(1); // 호출 시점에서 연산
+// modules/counter.js
+import { createAction, handleActions } from "redux-actions"
+
+const INCREASE = 'counter/INCREASE'
+const DECREASE = 'counter/DECREASE'
+
+export const increase = createAction(INCREASE)
+export const decrease = createAction(DECREASE)
+
+export const increaseAsync = () => dispatch => {
+	setTimeout(() => {
+		dispatch(increase())
+	}, 1000)
+}
+
+export const decreaseAsync = () => dispatch => {
+	setTimeout(() => {
+		dispatch(decrease())
+	}, 1000)
+}
+
+const initState = 0;
+
+const counter = handleActions(
+	{
+		[INCREASE] : state => state + 1,
+		[DECREASE] : state => state - 1
+	},
+	initState	
+)
+
+export default counter;
 ```
 
 ``` js
-const addOneThunk = (x) => {
-	return x => x + 1;
-};
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
 
-const fn = addOneThunk(1);
-setTimeout(() => {
-	const value = fn(); // 연산되는 시점
-}, 1000)
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer from './module'
+import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
+import ReduxThunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+const logger = createLogger()
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, ReduxThunk)))
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
+reportWebVitals();
+```
+
+``` js
+// container/CounterContainer.js
+import React from 'react'
+import { connect } from 'react-redux'
+import Counter from '../components/Counter'
+import { increaseAsync, decreaseAsync } from '../module/counter'
+
+const CounterContainer = ({ number, increaseAsync, decreaseAsync }) => {
+	return (
+		<Counter
+			number={number}
+			onIncrease={increaseAsync}
+			onDecrease={decreaseAsync}
+		/>
+	)
+}
+
+export default connect(
+	state => ({
+		number: state.counter
+	}),
+	{
+		increaseAsync,
+		decreaseAsync
+	}
+)(CounterContainer)
 ```
 
 
+### redux-saga  
 
+thunk와 유사하게 비동기 작업을 처리하는 미들웨어이다. 
+함수 기반의 redux-thunk와는 달리 ES6의 **Generator 문법을 기반**으로 한다. 
+대다수의 기능은 redux-thunk로 처리할 수 있으며, redux-saga는 좀 더 특수한 상황에 사용한다. 
+
+- 기존 요청의 취소 처리해야 하는 경우 (중복 호출 방지)
+- 특정 액션 발생 시 다른 액션을 발생시키거나, 리덕스와 관계없는 코드를 실행해야하는 경우
+- 웹 소켓을 사용하는 경우
+- API 요청 실패 시 재요청 처리해야하는 경우
+
+``` js
+import { createAction, handleActions } from "redux-actions"
+import { delay, put, takeEvery, takeLatest} from 'redux-saga/effects'
+
+const INCREASE = 'counter/INCREASE'
+const DECREASE = 'counter/DECREASE'
+
+const INCREASE_ASYNC = 'counter/INCREASE_ASYNC'
+const DECREASE_ASYNC = 'counter/DECREASE_ASYNC'
+
+export const increase = createAction(INCREASE)
+export const decrease = createAction(DECREASE)
+
+export const increaseAsync = createAction(INCREASE_ASYNC, () => undefined)
+export const decreaseAsync = createAction(DECREASE_ASYNC, () => undefined)
+
+function* increaseSaga() {
+	yield delay(1000)
+	yield put(increase())
+}
+
+function* decreaseSaga() {
+	yield delay(1000)
+	yield put(decrease())
+}
+
+export function* counterSaga() {
+	yield takeEvery(INCREASE_ASYNC, increaseSaga)  // 모든 액션에 대해 처리
+	yield takeLatest(DECREASE_ASYNC, decreaseSaga) // 진행 중이던 액션을 취소하고 마지막 작업만 수행
+}
+
+const initState = 0;
+
+const counter = handleActions(
+	{
+		[INCREASE] : state => state + 1,
+		[DECREASE] : state => state - 1
+	},
+	initState	
+)
+
+export default counter
+```
+
+``` js
+import { all } from '@redux-saga/core/effects'
+import { combineReducers } from 'redux'
+import counter, { counterSaga } from './counter'
+
+const rootReducer = combineReducers({
+	counter,
+});
+
+export function* rootSaga() {
+	yield all([counterSaga()])
+}
+
+export default rootReducer
+```
+
+``` js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
+
+import { createStore, applyMiddleware } from 'redux'
+import rootReducer, { rootSaga } from './module'
+import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
+import ReduxThunk from 'redux-thunk'
+import createSagaMiddleware from '@redux-saga/core'
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+const logger = createLogger()
+const sagaMiddleware = createSagaMiddleware()
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger, ReduxThunk, sagaMiddleware)))
+sagaMiddleware.run(rootSaga)
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+
+reportWebVitals()
+```
 
 <br/>
 
