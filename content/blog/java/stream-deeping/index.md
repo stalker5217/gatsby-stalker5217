@@ -321,9 +321,9 @@ Map<String, Long> eMap =
 
 또 다른 예시는 ```joining```이다. 
 이 메서드는 ```CharSequence``` 인스턴스의 스트림에만 적용할 수 있다. 
-- ```joinging()```
-- ```joinging(CharSequence delimiter)```
-- ```joinging(CharSequence delimiter, CharSequence prefix, CharSequence suffix)```
+- ```joining()```
+- ```joining(CharSequence delimiter)```
+- ```joining(CharSequence delimiter, CharSequence prefix, CharSequence suffix)```
 
 ``` java
 List<String> cList = new ArrayList<>();
