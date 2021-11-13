@@ -32,7 +32,7 @@ using namespace std;
 
 void permutation(vector<int> & arr, const int curPos){
 	if(curPos == arr.size()){
-		for(int el : arr) cout << el << " ";
+		for(auto cur : arr) cout << cur << " ";
 		cout << "\n";
 		return;
 	}
@@ -51,6 +51,42 @@ int main(){
 	return 0;
 }
 ```
+
+하지만 위 코드 같은 경우에는 ```arr = {1, 1}``` 인 경우에도 2번의 출력이 이루어진다. 
+cpp에는 ```next_permutation```이라는 함수가 있다. 
+이 함수는 오름차순 정렬이 되어 있는 경우, 중복된 경우를 생력하고 사전순으로 구성된 순열을 구할 수 있다. 
+
+``` cpp
+bool my_next_permutation(vector<int> & arr) {
+	// arr[x] < arr[x+1]를 만족하는 가장 큰 x 값을 구하며, 존재하지 않으면 순열의 마지막임
+	int i = arr.size() - 2;
+	while(i >= 0 && arr[i] >= arr[i + 1]) i--;
+	if(i == -1) return false;
+
+	// arr[x] < arr[y]를 만족하는 가장 큰 y 값을 구함
+	int j = arr.size() - 1;
+	while(j > 0 && arr[i] >= arr[j]) j--;
+	
+	// arr[x], arr[y]를 교환
+	swap(arr[i], arr[j]);
+
+	// [x+1, n] 구간을 reverse
+	reverse(arr.begin() + i + 1, arr.end());
+
+	return true;
+};
+
+int main() {
+	vector<int> arr = {1, 2, 3};
+
+	do {
+		for(auto cur : arr) cout << cur << " ";
+		cout << "\n";
+	} while(my_next_permutation(arr));
+}
+```
+
+> [next_permutation](/cpp/next-permutation)
 
 ### Combination  
 
