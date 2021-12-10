@@ -143,7 +143,19 @@ public class Book extends Item{
 @NoArgsContructor
 public abstract class BaseEntity {
     private LocalDateTime createAt;
-    private LocalDateTime updateAt; 
+    private LocalDateTime updateAt;
+
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        createAt = now;
+        updateAt = now;
+    } 
+
+    @PreUpdate
+    public void preUpdate() {
+        updateAt = LocalDateTime.now();
+    }
 }
 ```
 
