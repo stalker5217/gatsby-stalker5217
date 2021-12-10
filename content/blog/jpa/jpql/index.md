@@ -7,7 +7,6 @@ tags:
   - java
   - jpa
   - Java Persistence Api
-  - persistence context
 description: '객체지향 쿼리 언어인 JPQL에 대해 알아봅시다'
 indexImage: './cover.png'
 ---

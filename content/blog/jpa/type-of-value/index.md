@@ -7,7 +7,6 @@ tags:
   - java
   - jpa
   - Java Persistence Api
-  - persistence context
 description: 'JPA의 임베디드 타입에 대해 알아봅시다'
 indexImage: './cover.png'
 ---
