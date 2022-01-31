@@ -166,4 +166,4 @@ Service는 변동이 클 확률이 높기 때문에 Application에서 직접 생
 <br/>
 
 참고
-- Robert C. Marin, Clean Architecture, 송준이, 인사이트
+- Robert C. Martin, Clean Architecture, 송준이, 인사이트
