@@ -229,6 +229,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 먼저 User를 정의하는 엔티티를 ```UserDetails```를 구현하여 작성한다.
 
 ``` java
+public enum UserRole implements GrantedAuthority {
+    SUPER_ADMIN,
+    ADMIN,
+    USER;
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_" + name();
+    }
+}
+```
+
+``` java
 @Entity
 @Data
 @NoArgsConstructor(access=AccessLevel.PROTECTED, force=true)
@@ -240,36 +253,35 @@ public class User implements UserDetails {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private final String username;
-    private final String password;
-    private final String fullname;
-    private final String street;
-    private final String city;
-    private final String state;
-    private final String zip;
-    private final String phoneNumber;
+    private String username;
+    private String password;
+    private UserRole role;
 
 	// 사용자 권한을 리스트로 반환 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(new SimpleGrantedAuthority(this.role.getAuthority()));
     }
 
+    // 계정 만료 여부
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    // 계정 잠김 여부
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    // 비밀번호 만료 여부
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    // 유효 계정 여부
     @Override
     public boolean isEnabled() {
         return true;
@@ -292,12 +304,9 @@ public class UserRepositoryUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if(user != null){
-            return user;
-        }
-
-        throw new UsernameNotFoundException("User " + username + " not found");
+        return userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 }
 ```
