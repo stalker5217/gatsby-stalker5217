@@ -85,16 +85,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    ...
     implementation "com.querydsl:querydsl-jpa:5.0.0"
     implementation "com.querydsl:querydsl-apt:5.0.0"
     implementation 'p6spy:p6spy:3.9.1'
-
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    ...
 }
 
 test {
@@ -121,7 +116,53 @@ compileQuerydsl {
 }
 ```
 
-> 설정은 IDE 및 빌드 도구 버전에 따라 상이할 수 있다. 
+위 설정은 별도의 플러그인인 ```com.ewerk.gradle.plugins.querydsl```를 통한 설정이다. 
+그런데 gradle 버전은 자꾸 변경되는데 이 플러그인은 2018년 이 후 변경점이 없다. 
+이전에 만들어진 플러그인이라 새로운 버전의 gradle과는 호환이 안될 가능성이 높은 것이다. 
+그래서 외부 플러그인을 사용하지 않고, gradle 4.6 부터 등장한 'Annotation Processor'를 사용하여 구성할 수도 있다. 
+
+``` groovy
+// build.gradle
+plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'study'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ...
+    implementation "com.querydsl:querydsl-jpa"
+    implementation "com.querydsl:querydsl-apt"
+    implementation 'p6spy:p6spy:3.9.1'
+
+    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    ...
+}
+
+test {
+    useJUnitPlatform()
+}
+
+sourceSets {
+    main.java.srcDir "$buildDir/generated"
+}
+```
 
 ### Querying  
 
@@ -491,3 +532,4 @@ update, delete 모두 수행된 대상의 수를 반환한다.
 참고  
 - 김영한, 자바 ORM 표준 JPA 프로그래밍, 에이콘
 - [Querydsl Reference Guide](http://querydsl.com/static/querydsl/5.0.0/reference/html_single/)
+- [[gradle] 그레이들 Annotation processor 와 Querydsl](http://honeymon.io/tech/2020/07/09/gradle-annotation-processor-with-querydsl.html)
