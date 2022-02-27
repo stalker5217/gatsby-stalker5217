@@ -41,8 +41,8 @@ xml, csv는 이 리포트 결과를 sonarqube 등과 연동하기 위해서 사�
 jacocoTestReport {
     reports {
         html.required = true
-        xml.required = false
-        csv.required = true
+        xml.required = true
+        csv.required = false
     }
 }
 ```
