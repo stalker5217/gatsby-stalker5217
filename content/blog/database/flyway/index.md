@@ -8,7 +8,7 @@ tags:
   - flyway
 description: 'flyway에 대해 알아봅시다'
 indexImage: './cover.png'
----
+--
 
 ## Flyway  
 
@@ -92,6 +92,33 @@ dependencies {
 스프링부트에서는 Auto Configuration에 의해 컨벤션에 맞추어 놓으면 딱히 세팅할게 없다. 마이그레이션 파일들은 'src/main/resource/db/migration'에 위치시키고, 별도의 database url을 지정하지 않았다면 datasource의 정보를 사용한다. 추가적인 설정이 필요하다면 프로퍼티 설정로 값을 조정한다. 
 
 [Common Application Properties : Data Migration Properties](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data-migration)
+
+``` yml
+spring:
+  flyway:
+    baseline-on-migrate: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+```
 
 <br/>
 
