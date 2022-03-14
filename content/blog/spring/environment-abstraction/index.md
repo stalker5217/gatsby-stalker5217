@@ -104,7 +104,7 @@ public class AppRunner implements ApplicationRunner {
 }
 ```
 
-또한 스프링부트에서는 ```@ConfigurationProperties```를 통해 setter를 통해 필드에 바인딩할 수도 있다. 
+또한 스프링부트에서는 ```@ConfigurationProperties```와 setter를 통해 필드에 바인딩할 수도 있다. 
 위 방법들과는 다르게 Type Safe하게 프로퍼티를 사용할 수 있다는 장점이 있다. 
 
 ``` java
