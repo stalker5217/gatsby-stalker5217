@@ -7,6 +7,7 @@ tags:
   - data structure
   - balanced tree
   - btree
+  - 기술 면접
 description: '균형 잡힌 트리인 B-Tree에 대해 알아봅시다'
 indexImage: './cover.png'
 ---
