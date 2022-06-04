@@ -103,4 +103,4 @@ recoloring이 새로운 불균형을 만들 수 있는 것과는 다르게 이�
 <br/>
 
 참고
-- Ellis Horowitz, Sartaj Sahni, Susan Anderson-Freed, Fundamentals of Data Structures in C
+- Ellis Horowitz, Sartaj Sahni, Susan Anderson-Freed, Fundamentals of Data Structures in C, Pearson
