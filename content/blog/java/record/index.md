@@ -5,8 +5,9 @@ categories:
   - java
 tags:
   - java
-  - annotation
-description: 'java annotation에 대해 알아봅시다'
+  - records
+  - record
+description: 'java의 record 키워드에 대해 알아봅시다'
 indexImage: './cover.png'
 ---
 
@@ -57,8 +58,7 @@ public class Point {
 public record(int x, int y) {}
 ```
 
->> lombok과는 다르게 JavaBeans 스펙을 따르지 않는다. 
->> x의 값을 가져오기 위한 메서드가 ```getX()```가 아니라, ```x()```로 정의된다. 
+> lombok과는 다르게 JavaBeans 스펙을 따르지 않는다. x의 값을 가져오기 위한 메서드가 ```getX()```가 아니라, ```x()```로 정의된다. 
 
 <br/>
 
