@@ -77,7 +77,7 @@ public class AppConfig extends HelloConfig {
 그리고 이들은 모두 ```@Import```를 메타 어노테이션으로 포함하고 있다. 
 그 중에서도 ```@EnableTransactionManagement```와 같은 어노테이션은 어노테이션 엘리먼트를 통해 옵션을 지정할 수 있다.
 
->> ```@Enable~``` 자체가 특정 문법은 아니고 관례적인 표현이다.
+> ```@Enable~``` 자체가 특정 문법은 아니고 관례적인 표현이다.
    
 ``` java
 @Target(ElementType.TYPE)
