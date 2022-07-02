@@ -109,7 +109,7 @@ public class Singleton {
 	private Singleton() {}
 
 	private static class SingletonHolder {
-		private static final Settings INSTANCE = new Singleton();
+		private static final Singleton INSTANCE = new Singleton();
 	}
 
 	public static Singleton getInstance() {
