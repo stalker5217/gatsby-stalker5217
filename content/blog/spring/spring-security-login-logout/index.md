@@ -44,14 +44,17 @@ protected void configure(HttpSecurity http) throws Exception {
 - ```passwordParameter(String)``` : 마찬가지로 password 정보를 담는 id의 디폴트는 'password'이다. 이를 다른 이름으로 명명할 수 있다. 
 - ```defaultSuccessUrl(String[, boolean])``` : 로그인 화면에서 로그인에 성공했을 때 이동되는 페이지를 지정한다. 그리고 특정 URL에 바로 접속했을 때 인증 정보가 없어 로그인 화면으로 리다이렉트 경우 로그인에 성공하면 처음 요청했던 페이지로 이동을 한다. 하지만 두 번째 값을 ```true```로 주면 기존 요청 URL과 상관없이 항상 지정된 페이지로 이동하게 된다.  
 
-그리고 예제에는 없으나  ```addLoginHandler``` 통해 핸들러를 등록하면 로그인에 성공했을 때 특정 동작을 하도록 지정할 수 있다.
+그리고 예제에는 없으나  ```successHandler``` 통해 핸들러를 등록하면 로그인이 성공 시 트리거 되며, 로그인 이력 등을 남기는 작업 등을 처리할 수 있다. 
+유사하게 ```failureHandler```는 로그인 실패 시 트리거 된다. 
+```AuthenticationProvider```를 디폴트로 사용하고 있다면, 여러 ```AuthenticationException```을 반환하는데 예외의 종류에 따라 메시지 출력 등에 활용할 수 있다. 
 
 ### ```logout```
 
 - ```logoutUrl(String)``` : 로그아웃을 처리하는 POST 요청 URL을 지정한다. 
 - ```logoutSuccessUrl(String)``` : 로그아웃을 했을 때 이동할 페이지를 지정한다. 
 
-마찬가지로 예제에는 없으나 ```addLogoutHandler``` 를 통해 로그아웃이 성공했을 때 특정 동작을 하도록 지정할 수 있다. 
+마찬가지로 예제에는 없으나 ```addLogoutHandler``` 를 통해 로그아웃의 동작을 재정의하거나, 
+```logoutSuccessHandler```를 통해 로그아웃에 성공했을 때 동작을 지정할 수 있다.
 
 <br/>
 
