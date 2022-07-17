@@ -5,7 +5,7 @@ categories:
   - web
 tags:
   - jwt
-description: '스프링 시큐리티로 JWT를 통한 인증을 구현해봅시다'
+description: 'JWT에 대해 알아봅시다'
 indexImage: './cover.png'
 ---
 
