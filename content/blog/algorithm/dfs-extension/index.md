@@ -58,7 +58,7 @@ void dfs(int here){
 			cout << "Back Edge\n";
 		}
 		else{
-			cout << "Corss Edge\n";
+			cout << "Cross Edge\n";
 		}
 	}
 	finished[here] = 1;
