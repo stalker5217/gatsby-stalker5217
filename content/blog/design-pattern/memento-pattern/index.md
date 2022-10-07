@@ -1,6 +1,6 @@
 ---
 title: 'GoF - Memento 패턴'
-date: '2022-10-0'
+date: '2022-10-05'
 categories:
   - design pattern
 tags:
