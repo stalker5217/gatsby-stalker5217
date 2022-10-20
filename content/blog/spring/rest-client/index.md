@@ -120,7 +120,8 @@ String ingredientsUrl = traverson
 
 ## WebClient  
 
-위의 예제들은 Blocking I/O 기반으로 synchronous하게 동작한다.  
+위의 예제들은 Blocking I/O 기반으로 synchronous하게 동작한다. 
+Blocking으로 동작하는 경우 외부 시스템으로 부터 응답을 받을 때까지 스레드가 대기하는 것이다. 
 
 하지만 스프링 5.0에서 부터 지원하는 Spring webflux에서는 Non-Blocking I/O 기반 non-synchronous API인 ```WebClient```를 제공하고 있다. 
 추세가 비동기 기반으로 바뀌고 있기 때문에 ```RestTemplate``` API 문서에서도 ```WebClient```를 사용할 수 있는 상황이라면 이를 사용할 것을 적극 권고하고 있다. 
@@ -140,6 +141,9 @@ webClientSample.subscribe(result -> {
 	log.info(result.getBody());
 });
 ```
+
+위 예제 같은 경우에는 단순히 응답 결과를 로깅하고 있어 완벽하게 비동기로 처리할 수 있어 Spring MVC 구조에서도 성능상 이점을 가져갈 수 있다. 
+그런데 하지만 응답 결과를 사용해 다시 클라이언트에 전달해야하는 경우에는 결국 Blocking 될 수 밖에 없다는 한계가 있는 것 같다. 
 
 <br/>
 
