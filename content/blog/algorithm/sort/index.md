@@ -40,13 +40,23 @@ indexImage: './cover.png'
 ![bubble_sort](./bubble_sort.png) 
 
 ``` cpp
-void bubbleSort(vector<int> & arr, int n){
-    for(int i = 0 ; i < n - 1 ; i++){
-        for(int j = 0 ; j < n - 1 ; j++){
-            if(arr[j] > arr[j+1])  swap(arr[j], arr[j+1]);
+class Solution {
+public:
+    /**
+     * Bubble Sort
+     */
+    vector<int> sortArray(vector<int>& nums) {
+        for(int i = 0 ; i < nums.size() - 1 ; i++) {
+            for (int j = 0 ; j < nums.size() - 1 ; j++) {
+                if (nums[j] > nums[j + 1]) {
+                    swap(nums[j], nums[j + 1]);
+                }
+            }
         }
+        
+        return nums;
     }
-}
+};
 ```
 
 ## Selection Sort  
@@ -56,17 +66,26 @@ void bubbleSort(vector<int> & arr, int n){
 ![selection_sort](./selection_sort.png) 
 
 ``` cpp
-void selectionSort(vector<int> & arr, int n){
-    for(int i = 0 ; i < n - 1 ; i++){
-        int prior = i;
-        for(int j = i + 1 ; j < n ; j++){
-            if(arr[prior] > arr[j]){
-                prior = j;
+class Solution {
+public:
+    /**
+     * Selection Sort
+     */
+    vector<int> sortArray(vector<int>& nums) {
+        for(int i = 0 ; i < nums.size() - 1 ; i++) {
+            int priorityIndex = i;
+            for (int j = i + 1 ; j < nums.size() ; j++) {
+                if (nums[priorityIndex] > nums[j]) {
+                    priorityIndex = j;
+                }
             }
+            
+            swap(nums[priorityIndex], nums[i]);
         }
-        swap(arr[i], arr[prior]);
+        
+        return nums;
     }
-}
+};
 ```
 
 ## Insertion Sort  
@@ -77,17 +96,25 @@ N번 순회를 하며 매 번 요소를 정렬된 부분의 적절한 위치에 
 ![insertion_sort](./insertion_sort.png)  
 
 ``` cpp
-void insertionSort(vector<int> & arr, int n){
-    for(int i = 1 ; i < n ; i++){
-		int cur = arr[i];
-		int j;
-		for(j = i - 1 ; j >= 0 ; j--){
-			if(arr[j] > cur) arr[j+1] = arr[j];
-			else break;
-		}
-		arr[j+1] = cur;
-	}
-}
+class Solution {
+public:
+    /**
+     * Insertion Sort
+     */
+    vector<int> sortArray(vector<int>& nums) {
+        for(int i = 1 ; i < nums.size() ; i++) {
+            for(int j = i - 1 ; j >= 0 ; j--) {
+                if (nums[j] > nums[j+1]) {
+                    swap(nums[j], nums[j+1]);
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        return nums;
+    }
+};
 ```
 
 ## Heap Sort  
@@ -98,17 +125,25 @@ N개 데이터를 모두 힙에 넣었다가 N번 ```pop```을 진행하면 정�
 힙의 push와 pop은 모두 $ O(lgN) $의 시간을 가지므로, 정렬 결과는 $ O(NlgN) $ 으로 구할 수 있다.
 
 ``` cpp
-void heapSort(vector<int> & arr){
-	vector<int> heap;
-
-	for(int i = 0 ; i < arr.size() ; i++){
-		push_heap(heap, arr[i]);
-	}
-
-	for(int i = 0 ; i < arr.size() ; i++){
-		arr[i] = pop_heap(heap);
-	}
-}
+class Solution {
+public:
+    /**
+     * Heap Sort
+     */
+    vector<int> sortArray(vector<int>& nums) {
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for(int num : nums) {
+            pq.push(num);
+        }
+        
+        for(int i = 0 ; i < nums.size() ; i++) {
+            nums[i] = pq.top();
+            pq.pop();
+        }
+        
+        return nums;
+    }
+};
 ```
 
 ## Merge Sort  
@@ -118,42 +153,55 @@ void heapSort(vector<int> & arr){
 ![merge_sort](./merge_sort.png)  
 
 ``` cpp
-void mergeSort(vector<int> & arr, int left, int right){	
-	// 데이터가 하나 되는 순간(left == right)까지 쪼갠다
-	if(left < right)
-	{
-		int mid = (left + right) / 2;
-		
-		mergeSort(arr, left, mid);
-		mergeSort(arr, mid + 1, right);
-		
-		mergeArea(arr, left, mid, right);
-	}
-}
-
-void mergeArea(vector<int> & arr, int left, int mid, int right){
-	int frontIdx = left;   // 앞 배열 인덱스
-	int rearIdx = mid + 1; // 뒷 배열 인덱스
-	int resultIdx = 0;  // 결과 배열 인덱스
-	
-	vector<int> temp(right - left + 1, 0);
-	// merge할 배열 중 하나가 끝날 때 까지 채우기
-	while(frontIdx <= mid && rearIdx <= right)
-	{
-		if(arr[frontIdx] <= arr[rearIdx])
-			temp[resultIdx++] = arr[frontIdx++];
-		else
-			temp[resultIdx++] = arr[rearIdx++];
-	}
-
-	// 먼저 다 채운 배열이 뒷 배열이면 앞 배열 나머지 요소 채우기
-	while(frontIdx <= mid) temp[resultIdx++] = arr[frontIdx++];
-	
-	// 먼저 다 채운 배열이 앞 배열이면 뒷 배열 나머지 요소 채우기
-	while(rearIdx <= right) temp[resultIdx++] = arr[rearIdx++];
-	
-	for(int i = left; i <= right; i++) arr[i] = temp[i - left];
-}
+class Solution {
+private:
+    void mergeSort(vector<int>& nums, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            
+            mergeSort(nums, left, mid);
+            mergeSort(nums, mid + 1 , right);
+            
+            mergeArea(nums, left, mid, right);
+        }
+    }
+    
+    void mergeArea(vector<int>& nums, int left, int mid, int right) {
+        int index1 = left;
+        int index2 = mid + 1;
+        
+        vector<int> result;
+        
+        while (index1 <= mid && index2 <= right) {
+            if (nums[index1] <= nums[index2]) {
+                result.push_back(nums[index1++]);
+            } else {
+                result.push_back(nums[index2++]);
+            }
+        }
+        
+        while (index1 <= mid) {
+            result.push_back(nums[index1++]);
+        }
+        
+        while (index2 <= right) {
+            result.push_back(nums[index2++]);
+        }
+        
+        for(int i = left ; i <= right ; i++) {
+            nums[i] = result[i - left];
+        }
+    }
+    
+public:
+    /**
+     * Merge Sort
+     */
+    vector<int> sortArray(vector<int>& nums) {
+        mergeSort(nums, 0, nums.size() - 1);
+        return nums;
+    }
+};
 ```
 
 ## Quick Sort  
@@ -168,31 +216,58 @@ pivot이라는 기준 원소를 통해 divide & conquer 방식으로 정렬 결�
 ![quick_sort](./quick_sort.png)
 
 ``` cpp
-int partition(vector<int> & arr, int left, int right){
-	int pivot = arr[left];
-	int low = left + 1;
-	int high = right;
-	
-	while(low <= high){
-		// pivot 보다 큰 값 찾기
-		while(pivot >= arr[low] && low <= right) low++;
-		
-		// pivot 보다 작은 값 찾기
-		while(pivot <= arr[high] && high >= left + 1) high--;
-			
-		// low와 high 위치가 역전되지 않았으면
-		if(low <= high) swap(arr[low], arr[high]);
-	}
-	swap(arr[left], arr[high]);
-	
-	return high; // 제 자리를 찾아간 pivot 위치
-}
-
-void quickSort(vector<int> & arr, int left, int right){
-	if(left >= right) return;
-
-	int pivot = partition(arr, left, right);
-	quickSort(arr, left, pivot - 1);
-	quickSort(arr, pivot + 1, right);
-}
+class Solution {
+private:
+    void quickSort(vector<int>& nums, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+        
+        // 정렬 전 한 쪽으로 쏠려 있으면 O(n^2)까지 떨어짐
+        int randomIndex = left + (rand() % (right - left + 1));
+        swap(nums[left], nums[randomIndex]);
+        
+        int pivotIndex = partition(nums, left, right);
+        
+        quickSort(nums, left, pivotIndex - 1);
+        quickSort(nums, pivotIndex + 1, right);
+    }
+    
+    int partition(vector<int>& nums, int left, int right) {
+        int& pivot = nums[left];
+        
+        int front = left + 1;
+        int tail = right;
+        
+        while (true) {
+            while(front <= right && pivot > nums[front]) {
+                front++;
+            }
+            
+            while(tail > left && pivot < nums[tail]) {
+                tail--;
+            }
+            
+            if (front < tail) {
+                swap(nums[front++], nums[tail--]);
+            } else {
+				break;
+			}
+        }
+        
+        swap(pivot, nums[tail]);
+        
+        return tail;
+    }
+    
+public:
+    /**
+     * Quick Sort
+     */
+    vector<int> sortArray(vector<int>& nums) {
+        quickSort(nums, 0, nums.size() - 1);
+        
+        return nums;
+    }
+};
 ```
