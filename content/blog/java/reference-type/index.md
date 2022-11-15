@@ -6,6 +6,10 @@ categories:
 tags:
   - java
   - reference
+  - strong reference
+  - weak reference
+  - soft reference
+  - phantom reference
 description: 'java의 reference 종류에 대해 알아봅시다'
 indexImage: './cover.png'
 ---
