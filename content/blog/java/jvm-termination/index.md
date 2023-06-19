@@ -148,8 +148,8 @@ OS에 의해 종료 시그널을 받는 경우이다.
 |SIGHUP|1|O|
 |SIGINT|2|O|
 |SIGQUIT|3|X|
-|SIGTERM|9|O|
-|SIGKILL|15|X|
+|SIGKILL|9|X|
+|SIGTERM|15|O|
 
 > [signal(7) - Linux manual page](https://man7.org/linux/man-pages/man7/signal.7.html)
 
