@@ -260,6 +260,21 @@ public class SyncCommitConsumer {
 }
 ```
 
+### Manual Committing offset in Spring Kafka
+
+Spring Kafka 사용 시 디폴트로는 ```enable.auto.commit```이 false로 Auto commit을 활성화 하지 않는다. 
+그리고 여러 개의 ```AckMode```를 제공하며, 이를 통해 offset commit을 할 수 있다.
+
+|AckMode|Description|
+|:--|:--|
+|RECORD|Commit the offset when the listener returns after processing the record.|
+|BATCH|Commit the offset when all the records returned by the ```poll()``` have been processed.|
+|TIME|Commit the offset when all the records returned by the ```poll()``` have been processed, as long as the ```ackTime``` since the last commit has been exceeded.|
+|COUNT|Commit the offset when all the records returned by the ```poll()``` have been processed, as long as ackCount records have been received since the last commit.|
+|COUNT_TIME|Similar to TIME and COUNT, but the commit is performed if either condition is true.|
+|MANUAL|The message listener is responsible to acknowledge() the Acknowledgment. After that, the same semantics as ```BATCH``` are applied.|
+|MANUAL_IMMEDIATE|Commit the offset immediately when the ```Acknowledgment.acknowledge()``` method is called by the listener.|
+
 ## Rebalncing
 
 각 파티션은 최대 하나의 컨슈머에 할당될 수 있다. 
@@ -439,3 +454,4 @@ public class GracefulShutdownConsumer {
 
 참고
 - 최원영, 아파치 카프카 애플리케이션 프로그래밍, BJ Public
+- [Message Listener Containers](https://docs.spring.io/spring-kafka/reference/kafka/receiving-messages/message-listener-container.html#committing-offsets)
